@@ -66,8 +66,13 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "loader-bar": {
+          "0%": { left: "-50%" },
+          "100%": { left: "100%" },
+        },
       },
       animation: {
+        "loader-bar": "loader-bar 1.5s infinite linear",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
