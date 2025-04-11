@@ -1,37 +1,40 @@
 import { useEffect, useState } from "react";
 
 const bootLines = [
-  "Initializing hypervisor virtual memory map allocation...",
-  "Loading secure boot kernel modules into memory cache...",
-  "Verifying digital signature for bootloader integrity...",
-  "Mounting root filesystem to primary device partition...",
-  "Checking system entropy levels for cryptographic ops...",
-  "Injecting precompiled runtime daemons into sandbox...",
-  "Boot sector verified. No anomalies detected.",
-  "Enumerating connected peripherals via PCIe protocol...",
-  "Detected input device: Logitech PS/2 compatible mouse.",
-  "Detected input device: ANSI 104-key mechanical keyboard.",
-  "Establishing encrypted link with local RPC services...",
-  "Running self-diagnostics... All systems nominal.",
-  "Spawning background threads for async task handlers...",
-  "Generating temporary session keys for user handshake...",
-  "Authenticating session using SHA-256 multi-factor hash...",
-  "Access token granted. Permissions elevated.",
-  "Loading user interface subsystems and core processes...",
-  "Finalizing UI shell... Injecting components...",
-  "Syncing local clock with global atomic time server...",
-  "Launch sequence completed. System operational ✅",
+  "Initializing Hotdog cart...",
+  "Loading mustard dispenser...",
+  "Keptchup readt for action...",
+  "Grilling Sausages.... 90% cooked",
+  "Hotdog bun found... it's fresh",
+  "Adding relish....can never have enough",
+  "Checking the keptchup level...low",
+  "Mustard bottle slighly overfilled",
+  "Pepping the onions... 50% done",
+  "Adding the onions... 100% done",
+  "Hotdog cart ready for action...",
+  "Sausages sizzling like a pro",
+  "Mustard is on standby...",
+  "Mustard on the right, Keptchup on the left",
+  "Relish is ready to go...",
+  "Hotdog taste test passed...",
+  "Hotdog cart is ready to roll...",
+  "Hotdog delivery system online...It's a go!",
+  "Loading system files...",
 ];
 
-export default function BootLoader() {
+export default function BootLoader({ onDone }: { onDone: () => void }) {
   const [visibleCount, setVisibleCount] = useState(0);
 
   useEffect(() => {
     if (visibleCount < bootLines.length) {
       const timeout = setTimeout(() => {
-        setVisibleCount(visibleCount + 1);
+        setVisibleCount((prev) => prev + 1);
       }, 200);
       return () => clearTimeout(timeout);
+    } else {
+      setTimeout(() => {
+        onDone();
+      }, 1000);
     }
   }, [visibleCount]);
 

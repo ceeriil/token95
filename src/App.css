@@ -1,5 +1,6 @@
 #root {
   text-align: center;
+  cursor: url("/img/default.svg") 2 2, auto;
 }
 
 @keyframes logo-spin {

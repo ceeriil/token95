@@ -1,4 +1,3 @@
-import { useState } from "react";
 import type { Applications } from "../../types";
 
 interface DesktopProps {
@@ -23,23 +22,7 @@ interface DesktopProps {
   setCurrentTrack: (track: number) => void;
 }
 
-export const Desktop: React.FC<DesktopProps> = ({
-  applications,
-  activeWindows,
-  maximized,
-  minimized,
-  windowOrder,
-  openWindow,
-  closeWindow,
-  setMaximized,
-  setMinimized,
-  volume,
-  setVolume,
-  isPlaying,
-  setIsPlaying,
-  currentTrack,
-  setCurrentTrack,
-}) => {
+export const Desktop: React.FC<DesktopProps> = () => {
   return (
     <div className="min-h-screen bg-[#008080] relative overflow-hidden">
       Desktop
