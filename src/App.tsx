@@ -3,6 +3,7 @@ import "./App.css";
 import BootLoader from "./components/Windows95/BootLoader";
 import { BootScreen } from "./components/Windows95/BootScreen";
 import { LoginScreen } from "./components/screens/LoginScreen";
+import { Windows95Layout } from "./components/Windows95/Windows95Layout";
 
 function App() {
   const [bootStage, setBootStage] = useState<"loader" | "screen" | "login">(
@@ -17,7 +18,7 @@ function App() {
       {bootStage === "screen" && (
         <BootScreen onDone={() => setBootStage("login")} />
       )}
-      {bootStage === "login" && <LoginScreen />}
+      {bootStage === "login" && <Windows95Layout />}
     </>
   );
 }
