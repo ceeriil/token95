@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Desktop } from "./Desktop";
 import { applications } from "./config/applications";
+import { useWindowControl } from "../../hooks/useWindowControl";
 
 export const Windows95Layout = () => {
   const [showBootScreen, setShowBootScreen] = useState(true);
@@ -13,6 +14,21 @@ export const Windows95Layout = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(0);
   const [minimized, setMinimized] = useState<Record<string, boolean>>({});
+
+  const {
+    activeWindows,
+    maximized,
+    windowOrder,
+    openWindow,
+    closeWindow,
+    setMaximized,
+    setWindowOrder,
+  } = useWindowControl();
+
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div
