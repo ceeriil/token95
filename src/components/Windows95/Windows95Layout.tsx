@@ -2,17 +2,14 @@ import { useState, useEffect } from "react";
 import { Desktop } from "./Desktop";
 import { applications } from "./config/applications";
 import { useWindowControl } from "../../hooks/useWindowControl";
+import { TaskBar } from "./TaskBar";
+import { ContextMenu } from "./ContextMenu";
 
 export const Windows95Layout = () => {
-  const [showBootScreen, setShowBootScreen] = useState(true);
-  const [showShutdown, setShowShutdown] = useState(false);
   const [time, setTime] = useState(new Date());
   const [contextMenu, setContextMenu] = useState({ show: false, x: 0, y: 0 });
   const [startMenuOpen, setStartMenuOpen] = useState(false);
-  const [showRunDialog, setShowRunDialog] = useState(false);
   const [volume, setVolume] = useState(50);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState(0);
   const [minimized, setMinimized] = useState<Record<string, boolean>>({});
 
   const {
@@ -57,6 +54,27 @@ export const Windows95Layout = () => {
         setMaximized={setMaximized}
         setMinimized={setMinimized}
       />
+
+      <TaskBar
+        applications={applications}
+        activeWindows={activeWindows}
+        minimized={minimized}
+        windowOrder={windowOrder}
+        setWindowOrder={setWindowOrder}
+        setMinimized={setMinimized}
+        startMenuOpen={startMenuOpen}
+        setStartMenuOpen={setStartMenuOpen}
+        time={time}
+        openWindow={openWindow}
+      />
+
+      {contextMenu.show && (
+        <ContextMenu
+          x={contextMenu.x}
+          y={contextMenu.y}
+          onNewWindow={() => openWindow("notepad")}
+        />
+      )}
     </div>
   );
 };
