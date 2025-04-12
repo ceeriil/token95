@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Pixelify+Sans:wght@400..700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -17,6 +17,58 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.loader-bg {
+  background: linear-gradient(to right, #f5383b, #f95c23);
+}
+
+.login-bg {
+  background-image: url("/img/bg-2.png");
+}
+
+.silver-title {
+  background: linear-gradient(to bottom, #7c665e 27%, #665149 40%, #bfb9b1 88%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #fff;
+  font-family: serif;
+  position: relative;
+  text-transform: uppercase;
+  font-size: 6rem;
+  margin: 0;
+  margin-top: 5rem;
+  font-weight: 500;
+  line-height: 1.1;
+  mix-blend-mode: screen;
+  font-family: "Cinzel", serif;
+  font-optical-sizing: auto;
+}
+
+.win-container {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  border: 3px groove #fff;
+}
+
+.custom-border {
+  border: 3px groove #000;
+}
+
+.silver-title::after {
+  background: none;
+  content: attr(data-heading) / "";
+  left: 0;
+  top: 0;
+  z-index: -1;
+  position: absolute;
+  text-shadow: -1px 0 1px #c6bb9f, 0 1px 1px #c6bb9f,
+    5px 5px 10px rgba(0, 0, 0, 0.4), -5px -5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.login-box {
+  background: linear-gradient(to bottom, #cfc09f 27%, #ffecb3 40%, #3a2c0f 78%);
+  font-family: serif;
 }
 
 @media (prefers-color-scheme: light) {
