@@ -6,9 +6,10 @@ import { LoginScreen } from "./components/screens/LoginScreen";
 import { Windows95Layout } from "./components/Windows95/Windows95Layout";
 
 function App() {
-  const [bootStage, setBootStage] = useState<"loader" | "screen" | "login">(
-    "loader"
-  );
+  const [bootStage, setBootStage] = useState<
+    "loader" | "screen" | "login" | "desktop"
+  >("loader");
+  const [loggedIn, setLoggedIn] = useState(false);
 
   return (
     <>
@@ -18,7 +19,15 @@ function App() {
       {bootStage === "screen" && (
         <BootScreen onDone={() => setBootStage("login")} />
       )}
-      {bootStage === "login" && <Windows95Layout />}
+      {bootStage === "login" && (
+        <LoginScreen
+          onLogin={() => {
+            setLoggedIn(true);
+            setBootStage("desktop");
+          }}
+        />
+      )}
+      {bootStage === "desktop" && loggedIn && <Windows95Layout />}
     </>
   );
 }

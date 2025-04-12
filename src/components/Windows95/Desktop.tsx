@@ -17,12 +17,6 @@ interface DesktopProps {
   setMinimized: (
     fn: (prev: Record<string, boolean>) => Record<string, boolean>
   ) => void;
-  volume: number;
-  setVolume: (volume: number) => void;
-  isPlaying: boolean;
-  setIsPlaying: (playing: boolean) => void;
-  currentTrack: number;
-  setCurrentTrack: (track: number) => void;
 }
 
 export const Desktop: React.FC<DesktopProps> = ({
@@ -39,7 +33,6 @@ export const Desktop: React.FC<DesktopProps> = ({
   const iconSpacing = 80;
   const iconsPerColumn = Math.floor((window.innerHeight - 100) / iconSpacing);
 
-  // Store icon positions in state
   const [iconPositions, setIconPositions] = useState<Record<string, Position>>(
     () => {
       const positions: Record<string, Position> = {};

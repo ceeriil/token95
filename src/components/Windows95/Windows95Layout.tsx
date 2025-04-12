@@ -9,7 +9,6 @@ export const Windows95Layout = () => {
   const [time, setTime] = useState(new Date());
   const [contextMenu, setContextMenu] = useState({ show: false, x: 0, y: 0 });
   const [startMenuOpen, setStartMenuOpen] = useState(false);
-  const [volume, setVolume] = useState(50);
   const [minimized, setMinimized] = useState<Record<string, boolean>>({});
 
   const {
@@ -68,13 +67,7 @@ export const Windows95Layout = () => {
         openWindow={openWindow}
       />
 
-      {contextMenu.show && (
-        <ContextMenu
-          x={contextMenu.x}
-          y={contextMenu.y}
-          onNewWindow={() => openWindow("notepad")}
-        />
-      )}
+      {contextMenu.show && <ContextMenu x={contextMenu.x} y={contextMenu.y} />}
     </div>
   );
 };

@@ -7,21 +7,21 @@ export const BootScreen = ({ onDone }: { onDone: () => void }) => {
 
   useEffect(() => {
     const steps = [
-      { text: "Starting Windows 95...", duration: 1000 },
-      { text: "Loading system files...", duration: 600 },
-      { text: "Booting kernel modules...", duration: 600 },
-      { text: "Initializing device drivers...", duration: 600 },
-      { text: "Detecting hardware...", duration: 600 },
-      { text: "Connecting to local host...", duration: 500 },
-      { text: "Loading user settings...", duration: 600 },
-      { text: "Optimizing memory...", duration: 500 },
+      { text: "Starting WhaleOS...", duration: 800 },
+      { text: "Loading system files...", duration: 400 },
+      { text: "Booting kernel modules...", duration: 400 },
+      { text: "Initializing device drivers...", duration: 400 },
+      { text: "Detecting hardware...", duration: 500 },
+      { text: "Connecting to local host...", duration: 300 },
+      { text: "Loading user settings...", duration: 400 },
+      { text: "Optimizing memory...", duration: 400 },
       { text: "Setting up desktop environment...", duration: 700 },
-      { text: "Loading startup programs...", duration: 700 },
-      { text: "Applying Whale0S themes...", duration: 600 },
+      { text: "Loading startup programs...", duration: 400 },
+      { text: "Applying Whale0S themes...", duration: 500 },
       { text: "Establishing internet connection...", duration: 600 },
-      { text: "Checking for updates...", duration: 500 },
-      { text: "Verifying system integrity...", duration: 600 },
-      { text: "Finalizing boot process...", duration: 800 },
+      { text: "Checking for updates...", duration: 400 },
+      { text: "Verifying system integrity...", duration: 400 },
+      { text: "Finalizing boot process...", duration: 300 },
     ];
 
     let timeout: number;

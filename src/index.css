@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Pixelify+Sans:wght@400..700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -24,12 +24,11 @@
 }
 
 .login-bg {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(15, 8, 8, 0.6)),
-    url("https://keninah.netlify.app/_nuxt/img/features-bg.7525068.svg");
+  background-image: url("/img/bg-2.png");
 }
 
 .silver-title {
-  background: linear-gradient(to bottom, #cfc09f 27%, #ffecb3 40%, #3a2c0f 78%);
+  background: linear-gradient(to bottom, #7c665e 27%, #665149 40%, #bfb9b1 88%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: #fff;
@@ -39,8 +38,11 @@
   font-size: 6rem;
   margin: 0;
   margin-top: 5rem;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.1;
+  mix-blend-mode: screen;
+  font-family: "Cinzel", serif;
+  font-optical-sizing: auto;
 }
 
 .win-container {
