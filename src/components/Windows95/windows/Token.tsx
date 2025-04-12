@@ -1,5 +1,3 @@
-import React from "react";
-
 export const Token = () => {
-  return <div>Token</div>;
+  return <div className="text-2xl font-bold">Very Soon...</div>;
 };

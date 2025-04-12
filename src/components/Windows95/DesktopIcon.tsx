@@ -7,13 +7,13 @@ interface DesktopIconProps {
 export function DesktopIcon({ label, icon, onClick }: DesktopIconProps) {
   return (
     <div
-      className="win95-desktop-icon select-none"
+      className="flex flex-col items-center select-none cursor-pointer  p-2"
       onClick={onClick}
       onDoubleClick={onClick}
       tabIndex={0}
     >
-      <div className="text-3xl mb-1">{icon}</div>
-      <div className="win95-desktop-icon-label">{label}</div>
+      <img src={`/img/${icon}`} alt="" width={42} height={42} />
+      <div className="text-sm font-bold mt-1">{label}</div>
     </div>
   );
 }

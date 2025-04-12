@@ -1,5 +1,6 @@
-import { Minus, Square, X } from "lucide-react";
+import { Minus, X } from "lucide-react";
 import React, { useState, useEffect } from "react";
+import { MenuBar } from "./Menubar";
 
 interface WindowWrapperProps {
   children: React.ReactNode;
@@ -16,7 +17,6 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
   children,
   title,
   onClose,
-  onMaximize,
   onMinimize,
   isMaximized,
   defaultPosition,
@@ -67,37 +67,37 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
 
   return (
     <div
-      className={`${windowStyle} win95-window bg-[#c0c0c0]`}
+      className={`${windowStyle}  win-container bg-[#808080]`}
       style={{
         ...(!isMaximized ? { top: position.y, left: position.x } : {}),
         zIndex: 100 + zIndex,
       }}
     >
       <div
-        className="bg-[#000080] text-white px-2 py-1 flex justify-between items-center cursor-move select-none"
+        className="bg-[#808080] text-black px-2 py-1 flex justify-between items-center cursor-move select-none"
         onMouseDown={handleMouseDown}
       >
-        <span className="text-sm flex items-center gap-2">
-          <span className="text-lg">
-            {title.split(" - ")[1]?.includes(".exe") ? "💾" : "📁"}
-          </span>
-          {title}
-        </span>
+        <span className="font-medium">{title}</span>
         <div className="flex gap-1">
           <button onClick={onMinimize}>
             <Minus className="h-3 w-3" />
           </button>
-          <button onClick={onMaximize}>
-            <Square className="h-3 w-3" />
-          </button>
-          <button onClick={onClose}>
+
+          <button
+            onClick={onClose}
+            className="bg-red-500 text-black p-0.5 custom-border"
+          >
             <X className="h-3 w-3" />
           </button>
         </div>
       </div>
 
+      <MenuBar />
+
       <div className="flex-1 overflow-auto bg-white win95-inset">
-        <div className="p-4">{children}</div>
+        <div className="p-4 min-h-64 flex items-center justify-center flex-col">
+          {children}
+        </div>
       </div>
     </div>
   );

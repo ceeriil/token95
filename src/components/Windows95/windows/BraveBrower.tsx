@@ -1,5 +1,3 @@
-import React from "react";
-
 export const BraveBrower = () => {
-  return <div>BraveBrower</div>;
+  return <div className="text-2xl font-bold">Very Soon...</div>;
 };

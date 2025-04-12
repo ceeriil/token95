@@ -2,13 +2,13 @@ import { BraveBrower } from "../windows/BraveBrower";
 import { Token } from "../windows/Token";
 
 const icons = {
-  braveBrowser: "👤",
-  token: "💼",
+  braveBrowser: "braveLogo.png",
+  token: "token.png",
 };
 
 export const applications = {
   about: {
-    title: "Brave Browser",
+    title: "Brave",
     icon: icons.braveBrowser,
     content: BraveBrower,
   },

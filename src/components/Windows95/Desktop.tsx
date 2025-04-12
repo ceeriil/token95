@@ -72,12 +72,10 @@ export const Desktop: React.FC<DesktopProps> = ({
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    // Snap to grid
     const gridSize = 20;
     const snappedX = Math.round(x / gridSize) * gridSize;
     const snappedY = Math.round(y / gridSize) * gridSize;
 
-    // Keep icons within bounds
     const maxX = window.innerWidth - 100;
     const maxY = window.innerHeight - 150;
     const boundedX = Math.max(0, Math.min(snappedX, maxX));
@@ -92,6 +90,12 @@ export const Desktop: React.FC<DesktopProps> = ({
   return (
     <div
       className="min-h-screen bg-red-300 relative overflow-hidden text-black"
+      style={{
+        backgroundImage: "url('/img/angelhead.png')",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundSize: "35%",
+      }}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
