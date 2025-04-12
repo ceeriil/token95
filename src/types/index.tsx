@@ -1,6 +1,7 @@
 export interface Application {
   title: string;
   icon: string;
+  content: React.ComponentType<any>;
 }
 
 export interface Applications {

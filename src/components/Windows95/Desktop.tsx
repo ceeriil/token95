@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Applications, Position } from "../../types";
 import { DesktopIcon } from "./DesktopIcon";
+import { WindowWrapper } from "./WindowWrapper";
 
 interface DesktopProps {
   applications: Applications;
@@ -114,6 +115,32 @@ export const Desktop: React.FC<DesktopProps> = ({
           />
         </div>
       ))}
+
+      {Object.entries(applications).map(
+        ([key, app]) =>
+          activeWindows[key] &&
+          !minimized[key] && (
+            <WindowWrapper
+              key={key}
+              title={app.title}
+              onClose={() => closeWindow(key)}
+              onMaximize={() =>
+                setMaximized((prev) => ({ ...prev, [key]: !prev[key] }))
+              }
+              onMinimize={() =>
+                setMinimized((prev) => ({ ...prev, [key]: true }))
+              }
+              isMaximized={maximized[key]}
+              defaultPosition={{
+                x: 50 + windowOrder.indexOf(key) * 30,
+                y: 50 + windowOrder.indexOf(key) * 30,
+              }}
+              zIndex={windowOrder.indexOf(key)}
+            >
+              <app.content />
+            </WindowWrapper>
+          )
+      )}
     </div>
   );
 };

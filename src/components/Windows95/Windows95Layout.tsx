@@ -32,14 +32,14 @@ export const Windows95Layout = () => {
     >
       <Desktop
         applications={applications}
+        activeWindows={activeWindows}
+        maximized={maximized}
         minimized={minimized}
+        windowOrder={windowOrder}
+        openWindow={openWindow}
+        closeWindow={closeWindow}
+        setMaximized={setMaximized}
         setMinimized={setMinimized}
-        volume={volume}
-        setVolume={setVolume}
-        isPlaying={isPlaying}
-        setIsPlaying={setIsPlaying}
-        currentTrack={currentTrack}
-        setCurrentTrack={setCurrentTrack}
       />
     </div>
   );
