@@ -1,6 +1,7 @@
 import { BraveBrower } from "../windows/BraveBrower";
 import { Token } from "../windows/Token";
 import { About } from "../windows/About";
+import { SwapPro } from "../windows/SwapPro";
 
 const icons = {
   braveBrowser: "braveLogo.png",
@@ -23,5 +24,10 @@ export const applications = {
     title: "About",
     icon: icons.about,
     content: About,
+  },
+  SwapPro: {
+    title: "SwapPro",
+    icon: icons.about,
+    content: SwapPro,
   },
 } as const;
