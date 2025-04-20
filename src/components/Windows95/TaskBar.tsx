@@ -142,7 +142,6 @@ function StartMenuItem({ text, onClick, className = "" }: StartMenuItemProps) {
       onClick={onClick}
     >
       <span>{text}</span>
-      <span className="">h</span>
     </button>
   );
 }

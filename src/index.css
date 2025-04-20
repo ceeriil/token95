@@ -75,6 +75,24 @@
   font-family: "Cinzel", serif !important;
 }
 
+/*  */
+
+.custom-scroll::-webkit-scrollbar {
+  width: 16px;
+  background-color: #c0c0c0;
+  border-left: 2px solid black;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: #808080;
+  border: 2px solid #000;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background-color: #c0c0c0;
+  border: 2px solid #000;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

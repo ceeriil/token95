@@ -67,14 +67,14 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
 
   return (
     <div
-      className={`${windowStyle}  win-container bg-[#808080]`}
+      className={`${windowStyle}  win-container bg-gray-300`}
       style={{
         ...(!isMaximized ? { top: position.y, left: position.x } : {}),
         zIndex: 100 + zIndex,
       }}
     >
       <div
-        className="bg-[#808080] text-black px-2 py-1 flex justify-between items-center cursor-move select-none"
+        className="bg-gray-300 text-black px-2 py-1 flex justify-between items-center cursor-move select-none max-h-[10rem]"
         onMouseDown={handleMouseDown}
       >
         <span className="font-medium">{title}</span>
@@ -95,9 +95,7 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
       <MenuBar />
 
       <div className="flex-1 overflow-auto bg-white win95-inset">
-        <div className="p-4 min-h-64 flex items-center justify-center flex-col">
-          {children}
-        </div>
+        <div className=" h-full">{children}</div>
       </div>
     </div>
   );
