@@ -4,6 +4,7 @@ import BootLoader from "./components/Windows95/BootLoader";
 import { BootScreen } from "./components/Windows95/BootScreen";
 import { LoginScreen } from "./components/screens/LoginScreen";
 import { Windows95Layout } from "./components/Windows95/Windows95Layout";
+import { CivicAuthProvider } from "@civic/auth-web3/react";
 
 function App() {
   const [bootStage, setBootStage] = useState<
@@ -12,7 +13,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   return (
-    <>
+    <CivicAuthProvider clientId={import.meta.env.VITE_CIVIC_CLIENT_ID!}>
       {bootStage === "loader" && (
         <BootLoader onDone={() => setBootStage("screen")} />
       )}
@@ -28,7 +29,7 @@ function App() {
         />
       )}
       {bootStage === "desktop" && loggedIn && <Windows95Layout />}
-    </>
+    </CivicAuthProvider>
   );
 }
 

@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@civic/auth": "^0.4.7",
+    "@civic/auth-web3": "^0.5.3",
     "autoprefixer": "^10.4.17",
     "clsx": "^2.1.1",
     "lucide-react": "^0.487.0",

@@ -71,7 +71,7 @@ export const BootScreen = ({ onDone }: { onDone: () => void }) => {
           className="w-32 mx-auto"
         />
 
-        <p className="text-4xl font-bold">Whale0S v1.0.5</p>
+        <p className="text-4xl font-bold">Token95 v1.0.5</p>
 
         <div className="w-full h-5 bg-gray-300 border border-black shadow-inner relative overflow-hidden">
           <div
@@ -84,7 +84,7 @@ export const BootScreen = ({ onDone }: { onDone: () => void }) => {
 
         {done && (
           <p className="mt-6 text-black font-bold text-sm animate-pulse">
-            Press Any key to Open WhaleOs...
+            Press Any key to Open Token95...
           </p>
         )}
       </div>

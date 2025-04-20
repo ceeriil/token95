@@ -71,6 +71,10 @@
   font-family: serif;
 }
 
+#civic-auth-iframe {
+  font-family: "Cinzel", serif !important;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
