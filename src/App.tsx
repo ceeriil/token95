@@ -1,34 +1,28 @@
 import { useState } from "react";
 import "./App.css";
+import "@radix-ui/themes/styles.css";
+
 import BootLoader from "./components/Windows95/BootLoader";
 import { BootScreen } from "./components/Windows95/BootScreen";
-import { LoginScreen } from "./components/screens/LoginScreen";
 import { Windows95Layout } from "./components/Windows95/Windows95Layout";
+import { CivicWalletProvider } from "./providers/CivicWalletProvider";
 
 function App() {
-  const [bootStage, setBootStage] = useState<
-    "loader" | "screen" | "login" | "desktop"
-  >("loader");
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [bootStage, setBootStage] = useState<"loader" | "screen" | "desktop">(
+    "loader"
+  );
 
   return (
-    <>
+    <CivicWalletProvider>
       {bootStage === "loader" && (
         <BootLoader onDone={() => setBootStage("screen")} />
       )}
       {bootStage === "screen" && (
-        <BootScreen onDone={() => setBootStage("login")} />
+        <BootScreen onDone={() => setBootStage("desktop")} />
       )}
-      {bootStage === "login" && (
-        <LoginScreen
-          onLogin={() => {
-            setLoggedIn(true);
-            setBootStage("desktop");
-          }}
-        />
-      )}
-      {bootStage === "desktop" && loggedIn && <Windows95Layout />}
-    </>
+
+      {bootStage === "desktop" && <Windows95Layout />}
+    </CivicWalletProvider>
   );
 }
 

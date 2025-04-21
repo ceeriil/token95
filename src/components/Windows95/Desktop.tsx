@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Applications, Position } from "../../types";
 import { DesktopIcon } from "./DesktopIcon";
 import { WindowWrapper } from "./WindowWrapper";
+import { UserButton } from "@civic/auth-web3/react";
 
 interface DesktopProps {
   applications: Applications;
@@ -82,9 +83,9 @@ export const Desktop: React.FC<DesktopProps> = ({
 
   return (
     <div
-      className="min-h-screen bg-red-300 relative overflow-hidden text-black"
+      className="min-h-screen bg-[#B0C4DE] relative overflow-hidden text-black"
       style={{
-        backgroundImage: "url('/img/angelhead.png')",
+        backgroundImage: "url('/img/token95.png')",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         backgroundSize: "35%",
@@ -92,6 +93,11 @@ export const Desktop: React.FC<DesktopProps> = ({
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
+      <div className="absolute right-3 top-4">
+        {" "}
+        <UserButton />
+      </div>
+
       {Object.entries(applications).map(([key, app]) => (
         <div
           key={key}
