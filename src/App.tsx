@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./App.css";
+import "@radix-ui/themes/styles.css";
+
 import BootLoader from "./components/Windows95/BootLoader";
 import { BootScreen } from "./components/Windows95/BootScreen";
 import { Windows95Layout } from "./components/Windows95/Windows95Layout";
