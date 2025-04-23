@@ -4,7 +4,6 @@ import { applications } from "./config/applications";
 import { useWindowControl } from "../../hooks/useWindowControl";
 import { TaskBar } from "./TaskBar";
 import { ContextMenu } from "./ContextMenu";
-import { UserButton } from "@civic/auth-web3/react";
 
 export const Windows95Layout = () => {
   const [time, setTime] = useState(new Date());

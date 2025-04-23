@@ -93,6 +93,14 @@
   border: 2px solid #000;
 }
 
+.btn-container .user-btn {
+  background-color: #c0c0c0 !important;
+  border-radius: 0.1rem;
+  padding: 0.2rem 0.4rem;
+  border: 1px groove #000;
+  font-weight: 600;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
