@@ -56,14 +56,14 @@ export const VaultStepper = () => {
             type="button"
             disabled={step === 0}
             onClick={() => setStep((prev) => prev - 1)}
-            className="border border-black bg-white px-4 py-2 disabled:opacity-50"
+            className="border border-black bg-white px-4 py-2 disabled:opacity-50 shadow-[2px_2px_0_#000] text-sm hover:bg-gray-200 font-medium"
           >
-            ◀ Back
+            Back
           </button>
           {step === steps.length - 1 ? (
             <button
               type="submit"
-              className="border border-black bg-green-200 px-4 py-2 hover:bg-green-300"
+              className="border border-black bg-blue-500 px-4 py-2  hover:bg-blue-600shadow-[2px_2px_0_#000] text-sm shadow-[2px_2px_0_#000] font-medium"
             >
               🔒 Lock Now
             </button>
@@ -71,9 +71,9 @@ export const VaultStepper = () => {
             <button
               type="button"
               onClick={() => setStep((prev) => prev + 1)}
-              className="border border-black bg-white px-4 py-2"
+              className="border border-black bg-white px-4 py-2 shadow-[2px_2px_0_#000] text-sm hover:bg-gray-200 font-medium"
             >
-              Next ▶
+              Next
             </button>
           )}
         </div>

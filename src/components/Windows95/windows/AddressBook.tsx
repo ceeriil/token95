@@ -15,27 +15,37 @@ export const AddressBook = () => {
   };
 
   return (
-    <div className="border-2 border-black bg-gray-100 p-4 w-full max-w-md font-mono text-sm shadow-[4px_4px_0_black]">
-      <h2 className="text-lg font-bold mb-2">📇 Address Book 98</h2>
-
+    <div className=" bg-gray-100 p-4 w-full  text-sm ">
       <div className="flex flex-col gap-2 mb-4">
-        <input
-          placeholder="Name"
-          value={name}
-          className="border border-black px-2 py-1"
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          placeholder="Wallet Address"
-          value={address}
-          className="border border-black px-2 py-1"
-          onChange={(e) => setAddress(e.target.value)}
-        />
+        <div>
+          <label className="block text-sm mb-1 text-left font-semibold">
+            Name:
+          </label>
+          <input
+            placeholder="Name"
+            value={name}
+            className="w-full p-1.5 border border-black bg-white text-sm font-mono"
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm mb-1 text-left font-semibold">
+            Address:
+          </label>
+          <input
+            placeholder="Wallet Address"
+            value={address}
+            className="w-full p-1.5 border border-black bg-white text-sm font-mono"
+            onChange={(e) => setAddress(e.target.value)}
+          />
+        </div>
+
         <button
           onClick={handleAdd}
-          className="bg-white border border-black px-2 py-1 active:translate-x-[1px] active:translate-y-[1px]"
+          className="mt-4 w-full border border-black bg-blue-500 hover:bg-blue-600 text-white text-sm shadow-[2px_2px_0_#000] py-2"
         >
-          ➕ Add Address
+          Add Address
         </button>
       </div>
 

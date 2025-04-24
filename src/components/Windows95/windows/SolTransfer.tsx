@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const BraveBrower = () => {
+export const SolTransfer = () => {
   const [walletAddress, setWalletAddress] = useState("");
   const [amount, setAmount] = useState("");
   const [status, setStatus] = useState("");
