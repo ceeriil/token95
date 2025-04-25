@@ -105,6 +105,55 @@
   font-weight: 600;
 }
 
+.wallet-adapter-modal-container .wallet-adapter-modal-wrapper {
+  background-color: #c0c0c0;
+  color: #000;
+  font-family: "Pixelify Sans", sans-serif;
+  border: 2px solid #fff;
+  border-right-color: #808080;
+  border-bottom-color: #808080;
+  padding: 12px;
+  box-shadow: inset -1px -1px 0 #808080, inset 1px 1px 0 #fff;
+  border-radius: 0;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.wallet-adapter-modal-container .wallet-adapter-modal-button-close {
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
+  color: #000;
+  border: 1px solid #000;
+  border-right-color: #fff;
+  border-bottom-color: #fff;
+  box-shadow: inset -1px -1px 0 #fff, inset 1px 1px 0 #808080;
+  border-radius: 0;
+  padding: 8px;
+}
+
+.wallet-adapter-modal-container .wallet-adapter-modal-button-close svg {
+  fill: #fff;
+}
+
+.wallet-adapter-modal-container .wallet-adapter-button {
+  color: #000;
+  font-family: "Pixelify Sans", sans-serif;
+}
+
+.wallet-adapter-modal-container .wallet-adapter-modal-title {
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #000;
+}
+
+.wallet-adapter-button:not([disabled]):hover {
+  background-color: #dcdcdc;
+  border: 2px solid #808080;
+  border-right-color: #fff;
+  border-bottom-color: #fff;
+  box-shadow: inset -1px -1px 0 #fff, inset 1px 1px 0 #808080;
+  color: #fff;
+}
 @keyframes blink {
   0%,
   100% {

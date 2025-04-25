@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Applications, Position } from "../../types";
 import { DesktopIcon } from "./DesktopIcon";
 import { WindowWrapper } from "./WindowWrapper";
-import { UserButton } from "@civic/auth-web3/react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 interface DesktopProps {
   applications: Applications;
@@ -94,7 +94,7 @@ export const Desktop: React.FC<DesktopProps> = ({
       onDrop={handleDrop}
     >
       <div className="absolute right-3 top-4 btn-container">
-        <UserButton className="user-btn" />
+        <WalletMultiButton />
       </div>
 
       {Object.entries(applications).map(([key, app]) => (

@@ -14,14 +14,15 @@ interface Props {
   children: ReactNode;
 }
 
+const CLIENT_ID = import.meta.env.VITE_CIVIC_CLIENT_ID;
+if (!CLIENT_ID) throw new Error("CLIENT_ID is required");
+
 export const CivicWalletProvider: FC<Props> = ({ children }) => {
   return (
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={[]} autoConnect>
         <WalletModalProvider>
-          <CivicAuthProvider clientId={import.meta.env.VITE_CIVIC_CLIENT_ID!}>
-            {children}
-          </CivicAuthProvider>
+          <CivicAuthProvider clientId={CLIENT_ID}>{children}</CivicAuthProvider>
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
