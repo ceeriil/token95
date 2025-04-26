@@ -1,0 +1,100 @@
+import { useState, useEffect } from "react";
+import { Copy, Send, Wallet } from "lucide-react";
+
+export const UserWindow = () => {
+  const [address, setAddress] = useState<string>("");
+  const [solBalance, setSolBalance] = useState<number>(0);
+  const [tokens, setTokens] = useState<{ symbol: string; balance: number }[]>(
+    []
+  );
+
+  // Mock fetching user's data
+  useEffect(() => {
+    // fake address
+    const fakeAddress = "9x9jv9fj93jf93jf93jf93jf9j3";
+    setAddress(fakeAddress);
+
+    // fake SOL balance
+    const fakeSolBalance = 2.34;
+    setSolBalance(fakeSolBalance);
+
+    // fake tokens
+    const fakeTokens = [
+      { symbol: "USDC", balance: 100 },
+      { symbol: "BONK", balance: 999999 },
+      { symbol: "SAMO", balance: 4200 },
+    ];
+    setTokens(fakeTokens);
+  }, []);
+
+  const avatarUrl = `https://api.dicebear.com/7.x/identicon/svg?seed=${address}`;
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(address);
+    alert("Address copied!");
+  };
+
+  const handleTransferClick = () => {
+    alert("Open Transfer Window 🚀 (Connect to your transfer flow here)");
+  };
+
+  return (
+    <div className="bg-gray-100  p-4 text-xs w-full">
+      <div className="flex flex-col items-center mb-4">
+        <img
+          src={avatarUrl}
+          alt="User Avatar"
+          className="w-16 h-16 border-2 border-black bg-white mb-2"
+        />
+        <div className="flex items-center gap-2 text-[0.7rem] text-gray-800">
+          <span className="truncate max-w-[160px]">{address}</span>
+          <button
+            onClick={handleCopy}
+            title="Copy Address"
+            className="hover:opacity-80"
+          >
+            <Copy className="w-3 h-3" />
+          </button>
+        </div>
+      </div>
+
+      {/* Balance */}
+      <div className="flex justify-between items-center border-t-2 border-black pt-2 mb-2">
+        <span className="font-bold text-sm">SOL Balance:</span>
+        <div className="flex items-center gap-1">
+          <Wallet className="w-4 h-4" />
+          <span>{solBalance.toFixed(2)} SOL</span>
+        </div>
+      </div>
+
+      {/* Transfer Button */}
+      <button
+        onClick={handleTransferClick}
+        className="w-full mb-4 border-2 border-black bg-blue-500 hover:bg-blue-600 text-white font-bold shadow-[2px_2px_0_#000] py-2 active:translate-x-[2px] active:translate-y-[2px]"
+      >
+        🚀 Transfer SOL
+      </button>
+
+      <div>
+        <h3 className="font-bold border-t-2 border-black pt-2 mb-2">
+          Owned Tokens:
+        </h3>
+        {tokens.length === 0 ? (
+          <p className="italic text-gray-600">No tokens found 🤔</p>
+        ) : (
+          <ul className="space-y-1 max-h-32 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-black scrollbar-track-gray-300">
+            {tokens.map((token, index) => (
+              <li
+                key={index}
+                className="flex justify-between items-center border border-black bg-white px-2 py-1 "
+              >
+                <span>{token.symbol}</span>
+                <span className="font-mono">{token.balance}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+};

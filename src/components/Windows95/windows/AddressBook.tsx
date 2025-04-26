@@ -1,5 +1,6 @@
 import { useAddressBook } from "@/store";
 import { useState } from "react";
+import { Copy, Eye, Trash2 } from "lucide-react";
 
 export const AddressBook = () => {
   const { addresses, addAddress, removeAddress } = useAddressBook();
@@ -12,6 +13,15 @@ export const AddressBook = () => {
       setName("");
       setAddress("");
     }
+  };
+
+  const handleCopy = (address: string) => {
+    navigator.clipboard.writeText(address);
+    alert("Address copied to clipboard!");
+  };
+
+  const handleView = (address: string) => {
+    window.open(`https://explorer.solana.com/address/${address}`, "_blank"); // or your mini explorer later
   };
 
   return (
@@ -49,25 +59,48 @@ export const AddressBook = () => {
         </button>
       </div>
 
-      <div className="max-h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-black scrollbar-track-gray-200 pr-2">
-        {addresses.length === 0 && <p>No addresses yet 🥲</p>}
-        {addresses.map((entry) => (
-          <div
-            key={entry.address}
-            className="flex justify-between items-center border-b border-black py-1"
-          >
-            <div>
-              <p className="font-bold">{entry.name}</p>
-              <p className="text-[0.7rem] text-gray-600">{entry.address}</p>
-            </div>
-            <button
-              onClick={() => removeAddress(entry.address)}
-              className="ml-2 px-2 py-1 text-red-600 border border-black bg-white"
+      <div className="max-h-52 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-black scrollbar-track-gray-300">
+        {addresses.length === 0 ? (
+          <p className="italic text-gray-600">No addresses yet 🥲</p>
+        ) : (
+          addresses.map((entry) => (
+            <div
+              key={entry.address}
+              className="flex justify-between items-center border border-black py-2 px-3 bg-white mb-2"
             >
-              ❌
-            </button>
-          </div>
-        ))}
+              <div className="flex flex-col">
+                <p className="font-bold text-sm">{entry.name}</p>
+                <div className="flex items-center gap-2 text-gray-700 text-[0.8rem]">
+                  <span className="truncate max-w-[120px] font-mono font-medium">
+                    {entry.address}
+                  </span>
+                  <button
+                    onClick={() => handleCopy(entry.address)}
+                    title="Copy Address"
+                    className="hover:opacity-80"
+                  >
+                    <Copy className="w-3 h-3" />
+                  </button>
+                  <button
+                    onClick={() => handleView(entry.address)}
+                    title="View in Explorer"
+                    className="hover:opacity-80"
+                  >
+                    <Eye className="w-3 h-3" />
+                  </button>
+                </div>
+              </div>
+
+              <button
+                onClick={() => removeAddress(entry.address)}
+                title="Remove"
+                className="ml-2 p-1 border-2 border-black bg-red-500 hover:bg-red-600 text-white shadow-[2px_2px_0_#000]"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

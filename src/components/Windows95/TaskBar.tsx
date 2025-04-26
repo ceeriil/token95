@@ -90,9 +90,9 @@ export function TaskBar({
         >
           <div>
             <StartMenuItem
-              text="Credit"
+              text="Profile"
               onClick={() => {
-                openWindow("about");
+                openWindow("profile");
                 setStartMenuOpen(false);
               }}
             />

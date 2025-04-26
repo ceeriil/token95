@@ -4,6 +4,7 @@ import { SwapPro } from "../windows/SwapPro";
 import { VaultStepper } from "../windows/Vault98";
 import { AddressBook } from "../windows/AddressBook";
 import RiskScannerMainWindow from "../windows/RiskScanner";
+import { UserWindow } from "../windows/Profile";
 
 const icons = {
   SolTransfer: "transfer.png",
@@ -44,5 +45,10 @@ export const applications = {
     title: "Risk Scanner",
     icon: icons.riskScanner,
     content: RiskScannerMainWindow,
+  },
+  profile: {
+    title: "Profile",
+    icon: icons.riskScanner,
+    content: UserWindow,
   },
 } as const;
