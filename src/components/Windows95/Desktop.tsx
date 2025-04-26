@@ -3,6 +3,8 @@ import type { Applications, Position } from "../../types";
 import { DesktopIcon } from "./DesktopIcon";
 import { WindowWrapper } from "./WindowWrapper";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { Balance } from "../Balance";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 interface DesktopProps {
   applications: Applications;
@@ -31,6 +33,7 @@ export const Desktop: React.FC<DesktopProps> = ({
   setMaximized,
   setMinimized,
 }) => {
+  const { publicKey } = useWallet();
   const iconSpacing = 80;
   const iconsPerColumn = Math.floor((window.innerHeight - 100) / iconSpacing);
 
@@ -93,14 +96,16 @@ export const Desktop: React.FC<DesktopProps> = ({
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
-      <div className="absolute right-3 top-4 btn-container">
-        <WalletMultiButton />
+      <div className="absolute right-3 top-4 btn-container flex items-center btn-wrapper">
+        {publicKey && <Balance address={publicKey} />}
+
+        <WalletMultiButton className="connect-btn" />
       </div>
 
       {Object.entries(applications).map(([key, app]) => (
         <div
           key={key}
-          className="absolute"
+          className="absolute "
           style={{
             left: iconPositions[key]?.x || 0,
             top: iconPositions[key]?.y || 0,

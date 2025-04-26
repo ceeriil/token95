@@ -1,5 +1,4 @@
 import { SolTransfer } from "../windows/SolTransfer";
-import { Token } from "../windows/Token";
 import { About } from "../windows/About";
 import { SwapPro } from "../windows/SwapPro";
 import { VaultStepper } from "../windows/Vault98";
@@ -8,7 +7,6 @@ import RiskScannerMainWindow from "../windows/RiskScanner";
 
 const icons = {
   SolTransfer: "transfer.png",
-  token: "token.png",
   jup: "jup.png",
   about: "about.png",
   vault: "vault.png",
@@ -21,11 +19,6 @@ export const applications = {
     title: "Bank",
     icon: icons.SolTransfer,
     content: SolTransfer,
-  },
-  token: {
-    title: "Token",
-    icon: icons.token,
-    content: Token,
   },
   about: {
     title: "About",

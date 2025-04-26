@@ -152,7 +152,18 @@
   border-right-color: #fff;
   border-bottom-color: #fff;
   box-shadow: inset -1px -1px 0 #fff, inset 1px 1px 0 #808080;
-  color: #fff;
+}
+
+.btn-wrapper .wallet-adapter-button,
+.btn-wrapper .wallet-adapter-button-trigger {
+  font-family: "IBM Plex Mono", monospace;
+  background: #dcdcdc !important;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #000;
+  height: 34px;
+  border: 1px solid #fff;
+  border-radius: 0;
 }
 @keyframes blink {
   0%,

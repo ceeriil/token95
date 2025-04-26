@@ -1,3 +1,4 @@
+import { useTransactionToast } from "@/hooks/useTransactionToast";
 import { TOKEN_2022_PROGRAM_ID, TOKEN_PROGRAM_ID } from "@solana/spl-token";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import {
@@ -11,10 +12,10 @@ import {
 } from "@solana/web3.js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { useTransactionToast } from "../ui/ui-layout";
 
 export function useGetBalance({ address }: { address: PublicKey }) {
   const { connection } = useConnection();
+  console.log("address", address, connection);
 
   return useQuery({
     queryKey: ["get-balance", { endpoint: connection.rpcEndpoint, address }],

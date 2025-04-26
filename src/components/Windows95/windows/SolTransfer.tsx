@@ -1,23 +1,62 @@
 import { useState } from "react";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { PublicKey } from "@solana/web3.js";
+import { useTransferSol } from "@/lib/account";
+import toast from "react-hot-toast";
 
 export const SolTransfer = () => {
+  const { publicKey } = useWallet();
   const [walletAddress, setWalletAddress] = useState("");
   const [amount, setAmount] = useState("");
   const [status, setStatus] = useState("");
 
-  const handleTransfer = () => {
+  const transferMutation = useTransferSol({ address: publicKey! });
+
+  const handleTransfer = async () => {
     if (!walletAddress || !amount) {
       setStatus("Enter a valid wallet and amount!");
       return;
     }
+
+    if (!publicKey) {
+      setStatus("Wallet not connected.");
+      return;
+    }
+
+    let destination: PublicKey;
+    try {
+      destination = new PublicKey(walletAddress);
+    } catch (err) {
+      setStatus("Invalid destination address.");
+      return;
+    }
+
+    const lamports = parseFloat(amount);
+    if (isNaN(lamports) || lamports <= 0) {
+      setStatus("Amount must be a positive number.");
+      return;
+    }
+
     setStatus(`Transferring ${amount} SOL to ${walletAddress}...`);
-    setTimeout(() => {
-      setStatus("Transfer complete! 🎉");
-    }, 2000);
+
+    transferMutation.mutate(
+      {
+        destination,
+        amount: lamports,
+      },
+      {
+        onSuccess: () => {
+          setStatus("Transfer complete! 🎉");
+        },
+        onError: () => {
+          setStatus("Transfer failed 😔");
+        },
+      }
+    );
   };
 
   return (
-    <div className="w-full  bg-gray-100 h-full py-3">
+    <div className="w-full bg-gray-100 h-full py-3">
       <div className="p-4">
         <label className="block text-sm mb-1 text-left font-semibold">
           Recipient Wallet:
@@ -43,9 +82,10 @@ export const SolTransfer = () => {
 
         <button
           onClick={handleTransfer}
-          className="mt-4 w-full border border-black bg-blue-500 hover:bg-blue-600 text-white text-sm shadow-[2px_2px_0_#000] py-2"
+          className="mt-4 w-full border border-black bg-blue-500 hover:bg-blue-600 text-white text-sm shadow-[2px_2px_0_#000] py-2 disabled:opacity-50"
+          disabled={transferMutation.isPending}
         >
-          Send SOL
+          {transferMutation.isPending ? "Sending..." : "Send SOL"}
         </button>
 
         {status && (

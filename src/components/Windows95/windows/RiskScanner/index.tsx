@@ -3,11 +3,17 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Clipboard, Printer, Share2 } from "lucide-react";
+import { useTokenReport } from "@/hooks/useTokenReport";
 
 export default function RiskScannerMainWindow() {
   const [inputValue, setInputValue] = useState("");
   const [result, setResult] = useState(null);
   const [activeTab, setActiveTab] = useState("token");
+  const { data, loading, error } = useTokenReport(
+    "45EgCwcPXYagBC7KqBin4nCFgEZWN7f3Y6nACwxqMCWX"
+  );
+
+  console.log("data ffff", data);
 
   const handleScan = () => {
     setResult({
