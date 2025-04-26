@@ -1,9 +1,7 @@
-import React from "react";
-
 export const About = () => {
   return (
     <div className="flex bg-gray-100  p-6 gap-4">
-      <div className="flex-1 border-2 border-black p-4 bg-white shadow-[2px_2px_0_#000] text-sm leading-relaxed custom-scroll h-60 overflow-y-scroll font-mono">
+      <div className="flex-1 border-2 border-black p-4 bg-white shadow-[2px_2px_0_#000] text-sm leading-relaxed custom-scroll h-60 overflow-y-scroll">
         <h1 className="text-lg font-bold mb-2">Welcome to Token98</h1>
         <p>
           Token98 is your your all-in-one Solana-powered retro workstation. This

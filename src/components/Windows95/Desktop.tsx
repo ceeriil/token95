@@ -93,9 +93,8 @@ export const Desktop: React.FC<DesktopProps> = ({
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
-      <div className="absolute right-3 top-4">
-        {" "}
-        <UserButton />
+      <div className="absolute right-3 top-4 btn-container">
+        <UserButton className="user-btn" />
       </div>
 
       {Object.entries(applications).map(([key, app]) => (

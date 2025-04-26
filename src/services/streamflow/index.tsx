@@ -9,8 +9,6 @@ import {
   ICreateResult,
   Stream,
 } from "@streamflow/stream";
-import { SignerWalletAdapter } from "@solana/wallet-adapter-base";
-import { Keypair } from "@solana/web3.js";
 
 /**
  * create a new instance of the SolanaStreamClient

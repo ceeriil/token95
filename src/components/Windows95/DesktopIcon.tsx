@@ -13,7 +13,9 @@ export function DesktopIcon({ label, icon, onClick }: DesktopIconProps) {
       tabIndex={0}
     >
       <img src={`/img/${icon}`} alt="" width={42} height={42} />
-      <div className="text-sm font-bold mt-1">{label}</div>
+      <div className="text-sm font-bold mt-1 break-words max-w-[9ch] text-center leading-[1]">
+        {label}
+      </div>
     </div>
   );
 }
