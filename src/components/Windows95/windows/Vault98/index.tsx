@@ -29,7 +29,7 @@ export const VaultStepper = () => {
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit(onSubmit)}
-        className="bg-gray-100 p-4 border border-black  w-full shadow-inner space-y-4"
+        className="bg-gray-100 p-4 border border-black  w-full shadow-inner space-y-4 h-full"
       >
         {/* Header */}
         <div className="flex space-x-2 text-sm">
