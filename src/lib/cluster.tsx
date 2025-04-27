@@ -21,11 +21,15 @@ export enum ClusterNetwork {
 
 export const defaultClusters: Cluster[] = [
   {
+    name: "mainnet",
+    endpoint: import.meta.env.VITE_MAINNET_RPC || clusterApiUrl("mainnet-beta"),
+    network: ClusterNetwork.Mainnet,
+  },
+  {
     name: "devnet",
     endpoint: clusterApiUrl("devnet"),
     network: ClusterNetwork.Devnet,
   },
-  { name: "local", endpoint: "http://localhost:8899" },
   {
     name: "testnet",
     endpoint: clusterApiUrl("testnet"),
@@ -76,8 +80,6 @@ export function ClusterProvider({ children }: { children: ReactNode }) {
   const setCluster = useSetAtom(clusterAtom);
   const setClusters = useSetAtom(clustersAtom);
 
-  console.log("ClusterProvider", cluster, clusters);
-
   const value: ClusterProviderContext = {
     cluster,
     clusters: clusters.sort((a, b) => (a.name > b.name ? 1 : -1)),
@@ -110,7 +112,7 @@ function getClusterUrlParam(cluster: Cluster): string {
       suffix = "devnet";
       break;
     case ClusterNetwork.Mainnet:
-      suffix = "";
+      suffix = "mainnet";
       break;
     case ClusterNetwork.Testnet:
       suffix = "testnet";

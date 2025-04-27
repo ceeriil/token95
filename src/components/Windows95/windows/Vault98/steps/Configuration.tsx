@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormContext } from "react-hook-form";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { format, isBefore, setHours, setMinutes, startOfDay } from "date-fns";
 import {
   Popover,
@@ -17,12 +17,23 @@ import {
 } from "../../../../ui/select";
 import { Calendar } from "../../../../ui/calendar";
 import { Input } from "../../../../ui/input";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { PublicKey } from "@solana/web3.js";
+import { useGetTokenAccounts } from "@/lib/account";
+import { useJupiterTokenList } from "@/lib/token-list";
 
 export const Configuration = () => {
   const { setValue } = useFormContext();
+  const { publicKey } = useWallet();
 
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [selectedTime, setSelectedTime] = useState<string>("");
+
+  const { data: tokenAccounts, isLoading } = useGetTokenAccounts({
+    address: publicKey as PublicKey,
+  });
+
+  const { data: jupiterTokenList } = useJupiterTokenList();
 
   const handleDateChange = (date: Date | undefined) => {
     if (!date) return;
@@ -37,34 +48,52 @@ export const Configuration = () => {
 
   const updateUnlockDate = (date?: Date, timeStr?: string) => {
     if (!date || !timeStr) return;
-
     const [hours, minutes] = timeStr.split(":").map(Number);
     const unlockDate = setMinutes(setHours(date, hours), minutes);
-
     setValue("unlockDate", unlockDate.toISOString());
   };
 
+  const tokenOptions = useMemo(() => {
+    if (!tokenAccounts) return [];
+
+    return [
+      { mint: "SOL", symbol: "SOL" },
+      ...tokenAccounts.map((account) => {
+        const parsed = account.account.data.parsed.info;
+        const mintAddress = parsed.mint;
+
+        const tokenInfo = jupiterTokenList?.find(
+          (token) => token.address === mintAddress
+        );
+
+        return {
+          mint: mintAddress,
+          symbol: tokenInfo?.symbol || mintAddress,
+        };
+      }),
+    ];
+  }, [tokenAccounts, jupiterTokenList]);
+
   return (
-    <div className="space-y-4  text-sm text-black relative">
+    <div className="space-y-4 text-sm text-black relative">
       <div className="flex flex-col gap-1">
-        <label className="font-semibold">Unlock Date:</label>
-        <Select>
-          <SelectTrigger className="w-full border border-black bg-[#c3c7cb] text-black  text-sm shadow-inner no-outline rounded-none hover:bg-[#d5d8dc]">
-            <SelectValue placeholder="Select token" />
+        <label className="font-semibold">Token</label>
+        <Select onValueChange={(value) => setValue("token", value)}>
+          <SelectTrigger className="w-full border border-black bg-[#c3c7cb] text-black text-sm shadow-inner no-outline rounded-none hover:bg-[#d5d8dc]">
+            <SelectValue
+              placeholder={isLoading ? "Loading tokens..." : "Select token"}
+            />
           </SelectTrigger>
           <SelectContent className="bg-white border border-black rounded-none shadow-lg text-sm z-[120]">
-            <SelectItem
-              value="SOL"
-              className="cursor-default px-2 py-1 hover:bg-[#c3c7cb] hover:text-black focus:bg-[#c3c7cb] focus:text-black"
-            >
-              SOL
-            </SelectItem>
-            <SelectItem
-              value="USDC"
-              className="cursor-default px-2 py-1 hover:bg-[#c3c7cb] hover:text-black focus:bg-[#c3c7cb] focus:text-black"
-            >
-              USDC
-            </SelectItem>
+            {tokenOptions.map((token) => (
+              <SelectItem
+                key={token.mint}
+                value={token.mint}
+                className="cursor-default px-2 py-1 hover:bg-[#c3c7cb] hover:text-black focus:bg-[#c3c7cb] focus:text-black"
+              >
+                {token.symbol}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
@@ -76,12 +105,12 @@ export const Configuration = () => {
             <PopoverTrigger asChild>
               <button
                 type="button"
-                className="w-full px-2 py-[7px] border border-black bg-[#c3c7cb] shadow-inner rounded-none hover:bg-[#d5d8dc] text-left "
+                className="w-full px-2 py-[7px] border border-black bg-[#c3c7cb] shadow-inner rounded-none hover:bg-[#d5d8dc] text-left"
               >
                 {selectedDate ? format(selectedDate, "PPP") : "Select a date"}
               </button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0 bg-white border border-black shadow-xl z-[120] ">
+            <PopoverContent className="w-auto p-0 bg-white border border-black shadow-xl z-[120]">
               <Calendar
                 mode="single"
                 selected={selectedDate}
