@@ -1,5 +1,5 @@
 import type { Applications } from "../../types";
-import { NetworkIndicator } from "./NetworkIndicator";
+import { NetworkSwitcher } from "../NetworkSwitcher";
 
 interface TaskBarProps {
   applications: Applications;
@@ -73,7 +73,7 @@ export function TaskBar({
         </div>
 
         <div className="flex space-x-2">
-          <NetworkIndicator network="mainnet" />
+          <NetworkSwitcher />
           <span className="border my-0.5 py-0.5 px-3 font-bold font-mono">
             {time.toLocaleTimeString([], {
               hour: "2-digit",
