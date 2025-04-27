@@ -5,6 +5,7 @@ import { WindowWrapper } from "./WindowWrapper";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { Balance } from "../Balance";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { DesktopContext } from "../context/DesktopContext";
 
 interface DesktopProps {
   applications: Applications;
@@ -85,69 +86,71 @@ export const Desktop: React.FC<DesktopProps> = ({
   };
 
   return (
-    <div
-      className="min-h-screen bg-[#B0C4DE] relative overflow-hidden text-black"
-      style={{
-        backgroundImage: "url('/img/token95.png')",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        backgroundSize: "35%",
-      }}
-      onDragOver={handleDragOver}
-      onDrop={handleDrop}
-    >
-      <div className="absolute right-3 top-4 btn-container flex items-center btn-wrapper">
-        {publicKey && <Balance address={publicKey} />}
+    <DesktopContext.Provider value={{ openWindow }}>
+      <div
+        className="min-h-screen bg-[#B0C4DE] relative overflow-hidden text-black"
+        style={{
+          backgroundImage: "url('/img/token95.png')",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "35%",
+        }}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+      >
+        <div className="absolute right-3 top-4 btn-container flex items-center btn-wrapper">
+          {publicKey && <Balance address={publicKey} />}
 
-        <WalletMultiButton className="connect-btn" />
-      </div>
-
-      {Object.entries(applications).map(([key, app]) => (
-        <div
-          key={key}
-          className="absolute "
-          style={{
-            left: iconPositions[key]?.x || 0,
-            top: iconPositions[key]?.y || 0,
-          }}
-          draggable
-          onDragStart={(e) => handleDragStart(e, key)}
-        >
-          <DesktopIcon
-            label={app.title.split(" - ")[0]}
-            icon={app.icon}
-            onClick={() => {
-              openWindow(key);
-            }}
-          />
+          <WalletMultiButton className="connect-btn" />
         </div>
-      ))}
 
-      {Object.entries(applications).map(
-        ([key, app]) =>
-          activeWindows[key] &&
-          !minimized[key] && (
-            <WindowWrapper
-              key={key}
-              title={app.title}
-              onClose={() => closeWindow(key)}
-              onMaximize={() =>
-                setMaximized((prev) => ({ ...prev, [key]: !prev[key] }))
-              }
-              onMinimize={() =>
-                setMinimized((prev) => ({ ...prev, [key]: true }))
-              }
-              isMaximized={maximized[key]}
-              defaultPosition={{
-                x: 50 + windowOrder.indexOf(key) * 30,
-                y: 50 + windowOrder.indexOf(key) * 30,
+        {Object.entries(applications).map(([key, app]) => (
+          <div
+            key={key}
+            className="absolute "
+            style={{
+              left: iconPositions[key]?.x || 0,
+              top: iconPositions[key]?.y || 0,
+            }}
+            draggable
+            onDragStart={(e) => handleDragStart(e, key)}
+          >
+            <DesktopIcon
+              label={app.title.split(" - ")[0]}
+              icon={app.icon}
+              onClick={() => {
+                openWindow(key);
               }}
-              zIndex={windowOrder.indexOf(key)}
-            >
-              <app.content />
-            </WindowWrapper>
-          )
-      )}
-    </div>
+            />
+          </div>
+        ))}
+
+        {Object.entries(applications).map(
+          ([key, app]) =>
+            activeWindows[key] &&
+            !minimized[key] && (
+              <WindowWrapper
+                key={key}
+                title={app.title}
+                onClose={() => closeWindow(key)}
+                onMaximize={() =>
+                  setMaximized((prev) => ({ ...prev, [key]: !prev[key] }))
+                }
+                onMinimize={() =>
+                  setMinimized((prev) => ({ ...prev, [key]: true }))
+                }
+                isMaximized={maximized[key]}
+                defaultPosition={{
+                  x: 50 + windowOrder.indexOf(key) * 30,
+                  y: 50 + windowOrder.indexOf(key) * 30,
+                }}
+                zIndex={windowOrder.indexOf(key)}
+              >
+                <app.content />
+              </WindowWrapper>
+            )
+        )}
+      </div>
+    </DesktopContext.Provider>
   );
 };

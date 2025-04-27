@@ -36,7 +36,7 @@ export function TaskBar({
   };
 
   return (
-    <div className="text-black fixed bottom-0 left-0 h-9 px-2 bg-[#B4B4B4] z-[9999] w-full border border-white">
+    <div className="text-black fixed bottom-0 left-0 h-9 px-2 bg-[#B4B4B4] z-[99s] w-full border border-white">
       <div className="flex items-center h-full">
         <button
           className={`border flex flex-col items-center justify-center h-[88%] px-3  border-t-white border-r-white  border-b-black border-l-black  ${
@@ -97,23 +97,27 @@ export function TaskBar({
               }}
             />
             <StartMenuItem
-              text="Documents"
+              text="About"
               onClick={() => {
-                openWindow("projects");
+                openWindow("about");
                 setStartMenuOpen(false);
               }}
             />
             <StartMenuItem
-              text="Privacy Policy"
+              text="Github"
               onClick={() => {
-                openWindow("cmd");
+                window.open("https://github.com/ceeriil/token95", "_blank");
                 setStartMenuOpen(false);
               }}
             />
 
             <StartMenuItem
-              text="Terms And Conditions"
+              text="Suggest a feature"
               onClick={() => {
+                window.open(
+                  "https://github.com/ceeriil/token95/issues",
+                  "_blank"
+                );
                 setStartMenuOpen(false);
               }}
             />

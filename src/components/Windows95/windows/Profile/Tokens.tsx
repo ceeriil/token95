@@ -19,7 +19,7 @@ export const Tokens = ({ address }: { address: PublicKey }) => {
     <div className="space-y-2">
       <div className="justify-between">
         <div className="flex justify-between">
-          <h2 className="text-2xl font-bold">Token Accounts</h2>
+          <h2 className="text-xl font-bold">Owned Tokens</h2>
           <div className="space-x-2">
             {query.isLoading ? (
               <span className="loading loading-spinner"></span>

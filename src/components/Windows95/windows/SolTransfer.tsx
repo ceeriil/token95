@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import { useTransferSol } from "@/lib/account";
-import toast from "react-hot-toast";
 
 export const SolTransfer = () => {
   const { publicKey } = useWallet();

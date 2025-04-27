@@ -89,9 +89,21 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
           <button
             onClick={onMinimize}
             aria-label="Minimize"
-            className="focus:outline-none"
+            className="bg-[#21C55D] text-black p-0.5 custom-border focus:outline-none"
           >
             <Minus className="h-3 w-3" />
+          </button>
+
+          <button
+            onClick={() => setIsExpanded((prev) => !prev)}
+            aria-label={isExpanded ? "Collapse" : "Expand"}
+            className="bg-yellow-500 text-black p-0.5 custom-border focus:outline-none"
+          >
+            {isExpanded ? (
+              <Minimize2 className="h-3 w-3" />
+            ) : (
+              <Maximize2 className="h-3 w-3" />
+            )}
           </button>
 
           <button
@@ -101,24 +113,12 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
           >
             <X className="h-3 w-3" />
           </button>
-
-          <button
-            onClick={() => setIsExpanded((prev) => !prev)}
-            aria-label={isExpanded ? "Collapse" : "Expand"}
-            className="focus:outline-none"
-          >
-            {isExpanded ? (
-              <Minimize2 className="h-3 w-3" />
-            ) : (
-              <Maximize2 className="h-3 w-3" />
-            )}
-          </button>
         </div>
       </div>
 
       <MenuBar />
 
-      <div className="flex-1 overflow-auto bg-white win95-inset">
+      <div className="flex-1 overflow-auto bg-white win95-inset h-full">
         <div className="h-full">{children}</div>
       </div>
     </div>
