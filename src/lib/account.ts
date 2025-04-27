@@ -12,6 +12,7 @@ import {
 } from "@solana/web3.js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { Metadata, PROGRAM_ID } from "@metaplex-foundation/mpl-token-metadata";
 
 export function useGetBalance({ address }: { address: PublicKey }) {
   const { connection } = useConnection();
@@ -49,6 +50,7 @@ export function useGetTokenAccounts({ address }: { address: PublicKey }) {
           programId: TOKEN_2022_PROGRAM_ID,
         }),
       ]);
+      console.log("tt", token2022Accounts, tokenAccounts);
       return [...tokenAccounts.value, ...token2022Accounts.value];
     },
   });
@@ -196,4 +198,50 @@ async function createTransaction({
     transaction,
     latestBlockhash,
   };
+}
+
+export async function fetchJupiterTokenList() {
+  const res = await fetch("https://token.jup.ag/all");
+  const tokenList = await res.json();
+  return tokenList;
+}
+
+export function useTokenMetadata(mintAddress: PublicKey | undefined) {
+  const { connection } = useConnection();
+
+  return useQuery({
+    queryKey: [
+      "token-metadata",
+      { endpoint: connection.rpcEndpoint, mint: mintAddress?.toBase58() },
+    ],
+    enabled: !!mintAddress,
+    queryFn: async () => {
+      if (!mintAddress) throw new Error("No mint address provided.");
+
+      const [metadataPDA] = PublicKey.findProgramAddressSync(
+        [
+          Buffer.from("metadata"),
+          PROGRAM_ID.toBuffer(),
+          mintAddress.toBuffer(),
+        ],
+        PROGRAM_ID
+      );
+
+      const accountInfo = await connection.getAccountInfo(metadataPDA);
+      if (!accountInfo) throw new Error("Metadata account not found.");
+
+      const [metadata] = await Metadata.deserialize(accountInfo.data);
+
+      const res = await fetch(metadata.data.uri);
+      const json = await res.json();
+
+      return {
+        name: metadata.data.name,
+        symbol: metadata.data.symbol,
+        uri: metadata.data.uri,
+        image: json.image,
+        description: json.description,
+      };
+    },
+  });
 }
