@@ -5,7 +5,6 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { getBN } from "@streamflow/stream";
 import { getCurrentTimestampInSeconds } from "@/helpers";
 import { createStream } from "@/services/streamflow";
-import { Keypair } from "@solana/web3.js";
 
 const steps = ["Configuration", "Recipients", "Review"];
 
@@ -64,7 +63,8 @@ export const VaultStepper = () => {
         await createStream(
           createStreamParams,
           {
-            sender: wallet as unknown as Keypair,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            sender: wallet as any, //don't ship with this state !!!!
             isNative: false,
           },
           (stream) => {

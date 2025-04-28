@@ -12,7 +12,7 @@ export function ContextMenu({ x, y }: ContextMenuProps) {
       style={{ top: y, left: x }}
     >
       <ContextMenuGroup>
-        <ContextMenuItem text="Open" icon={<Settings className="h-4 w-4" />} />
+        <ContextMenuItem text="New" icon={<Settings className="h-4 w-4" />} />
       </ContextMenuGroup>
       <ContextMenuGroup>
         <ContextMenuItem
@@ -21,10 +21,7 @@ export function ContextMenu({ x, y }: ContextMenuProps) {
         />
       </ContextMenuGroup>
       <ContextMenuGroup>
-        <ContextMenuItem
-          text="Credits"
-          icon={<Settings className="h-4 w-4" />}
-        />
+        <ContextMenuItem text="About" icon={<Settings className="h-4 w-4" />} />
       </ContextMenuGroup>
       <ContextMenuGroup>
         <ContextMenuItem
