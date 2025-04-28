@@ -7,14 +7,17 @@ import {
 import clsx from "clsx";
 
 interface NetworkIndicatorProps {
-  network: "mainnet" | "testnet" | "disconnected";
+  network: "mainnet" | "testnet" | "devnet" | "disconnected";
 }
 
-const getStatusColor = (network: string) => {
+//entire block need refactor i know 💀
+const getStatusColor = (network: NetworkIndicatorProps["network"]) => {
   switch (network) {
     case "mainnet":
       return "bg-green-600";
     case "testnet":
+      return "bg-yellow-400";
+    case "devnet":
       return "bg-yellow-400";
     case "disconnected":
       return "bg-red-500 animate-blink";
@@ -23,14 +26,16 @@ const getStatusColor = (network: string) => {
   }
 };
 
-const getStatusLabel = (network: string) => {
+const getStatusLabel = (network: NetworkIndicatorProps["network"]) => {
   switch (network) {
     case "mainnet":
       return "Mainnet";
     case "testnet":
       return "Testnet";
+    case "devnet":
+      return "Devnet";
     case "disconnected":
-      return "disconnected";
+      return "Disconnected";
     default:
       return "Unknown";
   }
@@ -44,15 +49,20 @@ export const NetworkIndicator = ({ network }: NetworkIndicatorProps) => {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <div className="flex items-center gap-1 px-2 py-1 text-sm cursor-default font-medium">
-            <div className={clsx("w-2 h-2 rounded-full", colorClass)} />
-            <span>{label}</span>
+          <div
+            className={clsx(
+              "flex items-center gap-1 p-1 cursor-default",
+              network === "disconnected" && "opacity-70"
+            )}
+          >
+            <div className={clsx("w-2.5 h-2.5 rounded-full", colorClass)} />
+            <span className="text-xs font-bold">{label}</span>
           </div>
         </TooltipTrigger>
         <TooltipContent className="bg-[#fefefe] border border-black text-xs shadow-md rounded-none text-black">
           {network === "disconnected"
             ? "Wallet not connected"
-            : `You’re on ${label}`}
+            : `You're on ${label}`}
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

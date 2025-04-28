@@ -1,5 +1,5 @@
 import type { Applications } from "../../types";
-import { NetworkIndicator } from "./NetworkIndicator";
+import { NetworkSwitcher } from "../NetworkSwitcher";
 
 interface TaskBarProps {
   applications: Applications;
@@ -36,7 +36,7 @@ export function TaskBar({
   };
 
   return (
-    <div className="text-black fixed bottom-0 left-0 h-9 px-2 bg-[#B4B4B4] z-[9999] w-full border border-white">
+    <div className="text-black fixed bottom-0 left-0 h-9 px-2 bg-[#B4B4B4] z-[99s] w-full border border-white">
       <div className="flex items-center h-full">
         <button
           className={`border flex flex-col items-center justify-center h-[88%] px-3  border-t-white border-r-white  border-b-black border-l-black  ${
@@ -73,7 +73,7 @@ export function TaskBar({
         </div>
 
         <div className="flex space-x-2">
-          <NetworkIndicator network="mainnet" />
+          <NetworkSwitcher />
           <span className="border my-0.5 py-0.5 px-3 font-bold font-mono">
             {time.toLocaleTimeString([], {
               hour: "2-digit",
@@ -90,30 +90,34 @@ export function TaskBar({
         >
           <div>
             <StartMenuItem
-              text="Credit"
+              text="Profile"
+              onClick={() => {
+                openWindow("profile");
+                setStartMenuOpen(false);
+              }}
+            />
+            <StartMenuItem
+              text="About"
               onClick={() => {
                 openWindow("about");
                 setStartMenuOpen(false);
               }}
             />
             <StartMenuItem
-              text="Documents"
+              text="Github"
               onClick={() => {
-                openWindow("projects");
-                setStartMenuOpen(false);
-              }}
-            />
-            <StartMenuItem
-              text="Privacy Policy"
-              onClick={() => {
-                openWindow("cmd");
+                window.open("https://github.com/ceeriil/token95", "_blank");
                 setStartMenuOpen(false);
               }}
             />
 
             <StartMenuItem
-              text="Terms And Conditions"
+              text="Suggest a feature"
               onClick={() => {
+                window.open(
+                  "https://github.com/ceeriil/token95/issues",
+                  "_blank"
+                );
                 setStartMenuOpen(false);
               }}
             />

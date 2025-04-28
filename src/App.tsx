@@ -5,7 +5,7 @@ import "@radix-ui/themes/styles.css";
 import BootLoader from "./components/Windows95/BootLoader";
 import { BootScreen } from "./components/Windows95/BootScreen";
 import { Windows95Layout } from "./components/Windows95/Windows95Layout";
-import { CivicWalletProvider } from "./providers/CivicWalletProvider";
+import { AppProvider } from "./providers/AppProvider";
 
 function App() {
   const [bootStage, setBootStage] = useState<"loader" | "screen" | "desktop">(
@@ -13,7 +13,7 @@ function App() {
   );
 
   return (
-    <CivicWalletProvider>
+    <AppProvider>
       {bootStage === "loader" && (
         <BootLoader onDone={() => setBootStage("screen")} />
       )}
@@ -22,7 +22,7 @@ function App() {
       )}
 
       {bootStage === "desktop" && <Windows95Layout />}
-    </CivicWalletProvider>
+    </AppProvider>
   );
 }
 
