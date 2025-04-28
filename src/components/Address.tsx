@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Link from "react";
 import {
   DocumentDuplicateIcon,
   CheckCircleIcon,
@@ -19,7 +18,6 @@ export const Address: React.FC<AddressProps> = ({
   className,
   length = "short",
 }) => {
-  console.log("Address component rendered with address:", address);
   const [addressCopied, setAddressCopied] = useState(false);
 
   const truncateAddress = (

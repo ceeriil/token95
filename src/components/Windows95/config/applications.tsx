@@ -15,6 +15,7 @@ const icons = {
   riskScanner: "risk.png",
 };
 
+/* All our mini app will be exported here. TODO: expand this to include help manual 📖 and boolean value to tell if we show on desktop or not 🗿*/
 export const applications = {
   transfer: {
     title: "Bank",
