@@ -18,7 +18,7 @@ export const Tokens = ({ address }: { address: PublicKey }) => {
   return (
     <div className="space-y-2">
       <div className="justify-between">
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <h2 className="text-xl font-bold">Owned Tokens</h2>
           <div className="space-x-2">
             {query.isLoading ? (
@@ -33,7 +33,7 @@ export const Tokens = ({ address }: { address: PublicKey }) => {
                   });
                 }}
               >
-                <RefreshCw />
+                <RefreshCw size={16} />
               </button>
             )}
           </div>
@@ -51,7 +51,7 @@ export const Tokens = ({ address }: { address: PublicKey }) => {
               No tokens found. Tokens you mint will show here
             </p>
           ) : (
-            <table className="table border-4 rounded-lg border-separate border-base-300">
+            <table className="table border rounded-none border-separate border-black w-full">
               <thead>
                 <tr>
                   <th>Public Key</th>

@@ -14,7 +14,7 @@ import {
  * create a new instance of the SolanaStreamClient
  */
 const solanaClient = new SolanaStreamClient(
-  `${process.env.NEXT_PUBLIC_RPC_URL}`
+  `${import.meta.env.VITE_MAINNET_RPC}`
 );
 
 /**

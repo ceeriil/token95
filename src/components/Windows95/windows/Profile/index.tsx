@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Copy, Send, Wallet } from "lucide-react";
+import { Wallet } from "lucide-react";
 import { useDesktop } from "@/components/context/DesktopContext";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { Tokens } from "./Tokens";
@@ -8,28 +8,17 @@ import { Address } from "@/components/Address";
 export const UserWindow = () => {
   const [address, setAddress] = useState<string>("");
   const [solBalance, setSolBalance] = useState<number>(0);
-  const [tokens, setTokens] = useState<{ symbol: string; balance: number }[]>(
-    []
-  );
+
   const { publicKey } = useWallet();
   const { openWindow: openWindowFn } = useDesktop();
 
-  // Mock fetching user's data
   useEffect(() => {
-    // fake address
     const fakeAddress = "9x9jv9fj93jf93jf93jf93jf9j3";
     setAddress(fakeAddress);
 
     // fake SOL balance
     const fakeSolBalance = 2.34;
     setSolBalance(fakeSolBalance);
-
-    const fakeTokens = [
-      { symbol: "USDC", balance: 100 },
-      { symbol: "BONK", balance: 999999 },
-      { symbol: "SAMO", balance: 4200 },
-    ];
-    setTokens(fakeTokens);
   }, []);
 
   const avatarUrl = `https://api.dicebear.com/7.x/identicon/svg?seed=${address}`;
@@ -55,7 +44,6 @@ export const UserWindow = () => {
         </div>
       </div>
 
-      {/* Balance */}
       <div className="flex justify-between items-center border-t-2 border-black pt-2 mb-2">
         <span className="font-bold text-sm">SOL Balance:</span>
         <div className="flex items-center gap-1">
