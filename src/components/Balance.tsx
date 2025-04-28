@@ -9,8 +9,6 @@ interface BalanceProps {
 export const Balance = ({ address }: BalanceProps) => {
   const { data: balance, isLoading, isError } = useGetBalance({ address });
 
-  console.log("balance", balance);
-
   if (isLoading || isError || balance === undefined) return null;
 
   const sol = Math.round((balance / LAMPORTS_PER_SOL) * 100000) / 100000;

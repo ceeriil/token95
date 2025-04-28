@@ -20,8 +20,11 @@ export const AddressBook = () => {
     alert("Address copied to clipboard!");
   };
 
+  //View Address on Explorer. Future update should allow users 
+  //  choose their preferred explorer or we have our mini inapp 
+  //  explorer 😤
   const handleView = (address: string) => {
-    window.open(`https://explorer.solana.com/address/${address}`, "_blank"); // or your mini explorer later
+    window.open(`https://explorer.solana.com/address/${address}`, "_blank"); 
   };
 
   return (

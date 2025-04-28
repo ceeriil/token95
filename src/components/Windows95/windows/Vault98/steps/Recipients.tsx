@@ -30,7 +30,7 @@ export const Recipients = () => {
   const { register, watch } = useFormContext();
   const selectedTokenMint = watch("token");
   const { publicKey } = useWallet();
-  const { data: tokenAccounts, isLoading } = useGetTokenAccounts({
+  const { data: tokenAccounts } = useGetTokenAccounts({
     address: publicKey!,
   });
 
@@ -75,7 +75,7 @@ export const Recipients = () => {
       <div className="space-y-1">
         <label className="font-semibold text-sm">Amount:</label>
         <Input
-          {...register("amount")}
+          {...register("tokenAmount")}
           placeholder="e.g. 100"
           className="bg-white border border-black font-mono text-sm rounded-none"
         />

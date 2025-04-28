@@ -38,6 +38,7 @@ export const Desktop: React.FC<DesktopProps> = ({
   const iconSpacing = 80;
   const iconsPerColumn = Math.floor((window.innerHeight - 100) / iconSpacing);
 
+  /* Default desktop icon position but no worries, can drag it to wherever the hell you want. Adjust spacing as you wish 🪄 */
   const [iconPositions, setIconPositions] = useState<Record<string, Position>>(
     () => {
       const positions: Record<string, Position> = {};
@@ -63,6 +64,7 @@ export const Desktop: React.FC<DesktopProps> = ({
     e.dataTransfer.dropEffect = "move";
   };
 
+  /* when icon is dropped we get the id of dragged item and we figure out where they drop it based on it relative container. ensure iconsstay in visible window and update in state 👊🏽 */
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     const id = e.dataTransfer.getData("text/plain");

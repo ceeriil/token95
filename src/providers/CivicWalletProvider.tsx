@@ -19,7 +19,6 @@ if (!CLIENT_ID) throw new Error("CLIENT_ID is required");
 
 export const CivicWalletProvider: FC<Props> = ({ children }) => {
   const { cluster } = useCluster();
-  console.log("SolanaProvider", cluster);
   const endpoint = useMemo(() => cluster.endpoint, [cluster]);
   const onError = useCallback((error: WalletError) => {
     console.error(error);
