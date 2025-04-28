@@ -5,6 +5,7 @@ import { VaultStepper } from "../windows/Vault98";
 import { AddressBook } from "../windows/AddressBook";
 import RiskScannerMainWindow from "../windows/RiskScanner";
 import { UserWindow } from "../windows/Profile";
+import { UserManual } from "../windows/UserManual";
 
 const icons = {
   SolTransfer: "transfer.png",
@@ -12,7 +13,8 @@ const icons = {
   about: "about.png",
   vault: "vault.png",
   addressBook: "address.png",
-  riskScanner: "risk.png",
+  riskScanner: "scanner.png",
+  userManual: "manual.png",
 };
 
 /* All our mini app will be exported here. TODO: expand this to include help manual 📖 and boolean value to tell if we show on desktop or not 🗿*/
@@ -51,5 +53,10 @@ export const applications = {
     title: "Profile",
     icon: icons.riskScanner,
     content: UserWindow,
+  },
+  UserManual: {
+    title: "User Manual",
+    icon: icons.riskScanner,
+    content: UserManual,
   },
 } as const;

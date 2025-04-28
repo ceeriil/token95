@@ -10,6 +10,7 @@ interface NetworkIndicatorProps {
   network: "mainnet" | "testnet" | "devnet" | "disconnected";
 }
 
+//entire block need refactor i know 💀
 const getStatusColor = (network: NetworkIndicatorProps["network"]) => {
   switch (network) {
     case "mainnet":

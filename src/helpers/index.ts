@@ -202,6 +202,7 @@ export const convertDateToTimestamp = (
 };
 
 export const getTotalDepositedAmount = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   streams: Array<[string, any]> | undefined
 ): number => {
   if (!Array.isArray(streams)) {

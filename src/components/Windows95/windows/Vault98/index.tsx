@@ -3,12 +3,9 @@ import { useState } from "react";
 import { Configuration, Recipients, Review } from "./steps";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { getBN } from "@streamflow/stream";
-import { Keypair } from "@solana/web3.js";
-import {
-  convertDurationToSeconds,
-  getCurrentTimestampInSeconds,
-} from "@/helpers";
+import { getCurrentTimestampInSeconds } from "@/helpers";
 import { createStream } from "@/services/streamflow";
+import { Keypair } from "@solana/web3.js";
 
 const steps = ["Configuration", "Recipients", "Review"];
 
@@ -23,6 +20,7 @@ export const VaultStepper = () => {
   const methods = useForm();
 
   const onSubmit = async () => {
+    /* Onsubmit we check if wallet is connected ✅ */
     if (!wallet.connected) {
       try {
         await wallet.connect();
@@ -32,21 +30,23 @@ export const VaultStepper = () => {
       }
     }
 
+    /* For this part we get user input from form and parse it with ou helper functions to prepare fo stremflow lock. this won't work now and assertion will likely fail cause we first need to validate user input with zod and ensure our helper functions parse values correctly */
     const isValid = await methods.trigger();
     if (isValid) {
       setIsTransactionLoading(true);
       const { token, recipient, tokenAmount, unlockDate } = methods.getValues();
 
       const totalAmountInLamports = getBN(tokenAmount, 6);
-      const unlockDurationInSeconds = convertDurationToSeconds(unlockDate);
+      /*  const unlockDurationInSeconds = convertDurationToSeconds(unlockDate); */
 
+      /* This need correction. wanted to get rid of eslint error temporarily. check unlock date const 🚦 */
       const createStreamParams = {
         recipient,
         tokenId: token,
         start: getCurrentTimestampInSeconds() + DELAY_IN_SECONDS,
         amount: totalAmountInLamports,
-        period: unlockDurationInSeconds,
-        cliff: getCurrentTimestampInSeconds() + unlockDurationInSeconds,
+        period: unlockDate,
+        cliff: getCurrentTimestampInSeconds() + unlockDate,
         cliffAmount: totalAmountInLamports,
         amountPerPeriod: totalAmountInLamports,
         name: "TOKEN98 - TOKEN LOCK",
@@ -89,6 +89,7 @@ export const VaultStepper = () => {
     <Review key="step3" />,
   ][step];
 
+  /* TODO: modularize this long ass component */
   return (
     <FormProvider {...methods}>
       <form
@@ -102,7 +103,6 @@ export const VaultStepper = () => {
         }}
         className="bg-gray-100 p-4 border border-black w-full shadow-inner space-y-4 h-full"
       >
-        {/* Header */}
         <div className="flex space-x-2 text-sm">
           {steps.map((label, i) => (
             <div
@@ -116,12 +116,10 @@ export const VaultStepper = () => {
           ))}
         </div>
 
-        {/* Step Content */}
         <div className="bg-white border border-black p-4 min-h-[150px]">
           {StepComponent}
         </div>
 
-        {/* Navigation Buttons */}
         <div className="flex justify-between">
           <button
             type="button"

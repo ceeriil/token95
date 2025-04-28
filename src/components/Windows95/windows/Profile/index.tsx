@@ -16,7 +16,7 @@ export const UserWindow = () => {
     const fakeAddress = "9x9jv9fj93jf93jf93jf93jf9j3";
     setAddress(fakeAddress);
 
-    // fake SOL balance
+    // fake SOL balance temporarily placeholder
     const fakeSolBalance = 2.34;
     setSolBalance(fakeSolBalance);
   }, []);

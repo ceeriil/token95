@@ -16,7 +16,7 @@ export enum ClusterNetwork {
   Mainnet = "mainnet-beta",
   Testnet = "testnet",
   Devnet = "devnet",
-  Custom = "custom",
+  Custom = "custom", //we will allow for custom cluster in the future
 }
 
 export const defaultClusters: Cluster[] = [

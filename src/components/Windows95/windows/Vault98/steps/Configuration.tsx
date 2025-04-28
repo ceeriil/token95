@@ -1,6 +1,5 @@
 "use client";
 
-import { useFormContext } from "react-hook-form";
 import { useState, useMemo } from "react";
 import { format, isBefore, setHours, setMinutes, startOfDay } from "date-fns";
 import {
@@ -21,10 +20,15 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import { useGetTokenAccounts } from "@/lib/account";
 import { useJupiterTokenList } from "@/lib/token-list";
+import { Controller, useFormContext } from "react-hook-form";
 
 export const Configuration = () => {
-  const { setValue } = useFormContext();
   const { publicKey } = useWallet();
+  const {
+    control,
+    setValue,
+    formState: { errors },
+  } = useFormContext();
 
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [selectedTime, setSelectedTime] = useState<string>("");
@@ -46,11 +50,20 @@ export const Configuration = () => {
     updateUnlockDate(selectedDate, time);
   };
 
-  const updateUnlockDate = (date?: Date, timeStr?: string) => {
+  const updateUnlockDate = (
+    date?: Date,
+    timeStr?: string,
+    onChange?: (value: string) => void
+  ) => {
     if (!date || !timeStr) return;
     const [hours, minutes] = timeStr.split(":").map(Number);
     const unlockDate = setMinutes(setHours(date, hours), minutes);
-    setValue("unlockDate", unlockDate.toISOString());
+    if (onChange) {
+      onChange(unlockDate.toISOString());
+    } else {
+      setValue("unlockDateTime", unlockDate.toISOString());
+      console.log(unlockDate.toISOString(), unlockDate, "dd");
+    }
   };
 
   const tokenOptions = useMemo(() => {
@@ -78,24 +91,33 @@ export const Configuration = () => {
     <div className="space-y-4 text-sm text-black relative">
       <div className="flex flex-col gap-1">
         <label className="font-semibold">Token</label>
-        <Select onValueChange={(value) => setValue("token", value)}>
-          <SelectTrigger className="w-full border border-black bg-[#c3c7cb] text-black text-sm shadow-inner no-outline rounded-none hover:bg-[#d5d8dc]">
-            <SelectValue
-              placeholder={isLoading ? "Loading tokens..." : "Select token"}
-            />
-          </SelectTrigger>
-          <SelectContent className="bg-white border border-black rounded-none shadow-lg text-sm z-[120]">
-            {tokenOptions.map((token) => (
-              <SelectItem
-                key={token.mint}
-                value={token.mint}
-                className="cursor-default px-2 py-1 hover:bg-[#c3c7cb] hover:text-black focus:bg-[#c3c7cb] focus:text-black"
-              >
-                {token.symbol}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <Controller
+          name="mint"
+          control={control}
+          render={({ field }) => (
+            <Select onValueChange={field.onChange} value={field.value}>
+              <SelectTrigger className="w-full border border-black bg-[#c3c7cb] text-black text-sm shadow-inner no-outline rounded-none hover:bg-[#d5d8dc]">
+                <SelectValue
+                  placeholder={isLoading ? "Loading tokens..." : "Select token"}
+                />
+              </SelectTrigger>
+              <SelectContent className="bg-white border border-black rounded-none shadow-lg text-sm z-[120]">
+                {tokenOptions.map((token) => (
+                  <SelectItem
+                    key={token.mint}
+                    value={token.mint}
+                    className="cursor-default px-2 py-1 hover:bg-[#c3c7cb] hover:text-black focus:bg-[#c3c7cb] focus:text-black"
+                  >
+                    {token.symbol}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+        />
+        {errors.mint && (
+          <p className="text-red-500 text-xs mt-1">{errors.root?.message}</p>
+        )}
       </div>
 
       <div className="grid grid-cols-[70%,30%] space-x-4">
