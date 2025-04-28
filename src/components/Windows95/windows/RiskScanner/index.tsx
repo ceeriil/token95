@@ -3,31 +3,60 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Clipboard, Printer, Share2 } from "lucide-react";
-import { useTokenReport } from "@/hooks/useTokenReport";
+import { fetchAddressThreatReport } from "@/services/webacy";
+import type { IThreatReportResult, IThreatReportIssue } from "@/types/report";
 
 export default function RiskScannerMainWindow() {
-  const [inputValue, setInputValue] = useState("");
-  const [result, setResult] = useState(null);
+  const [inputValue, setInputValue] = useState<string>("");
+  const [result, setResult] = useState<IThreatReportResult | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("token");
-  const { data, loading, error } = useTokenReport(
-    "45EgCwcPXYagBC7KqBin4nCFgEZWN7f3Y6nACwxqMCWX"
-  );
 
-  console.log("data ffff", data);
+  const handleScan = async () => {
+    if (!inputValue) return;
 
-  const handleScan = () => {
-    setResult({
-      riskScore: "84%",
-      summary:
-        "Token flagged for reentrancy vulnerability and unverified contract.",
-      connections: "Connected to known scams",
-      liquidity: "Not locked",
-      anonTeam: "Yes",
-    });
+    setLoading(true);
+    setError(null);
+
+    const data = await fetchAddressThreatReport(inputValue);
+    console.log("bb", data);
+
+    if (data) {
+      // We are grouping all the address field. this would be used
+      // to decide the kind of address user search for 🔍
+      const addressInfo = data.details?.address_info;
+
+      setResult({
+        riskScore: `${Math.round(data.overallRisk || 0)}%`,
+        isContract: data?.isContract
+          ? "Yes (Contract)"
+          : "No (Personal Wallet)",
+        washTradingScore: addressInfo?.wash_trading ?? "Unknown",
+        transactionCount: addressInfo?.transaction_count ?? "Unknown",
+        balance: addressInfo?.balance ?? "Unknown",
+        hasNoBalance: addressInfo?.has_no_balance ? "Yes" : "No",
+        spamSNS: addressInfo?.is_spam_sns ? "Yes" : "No",
+        issues:
+          data.issues?.map(
+            (issue: IThreatReportIssue) => issue.tags[0].description
+          ) ?? [],
+      });
+    } else {
+      setError("Failed to fetch data");
+    }
+
+    setLoading(false);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleScan();
+    }
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto bg-[#c3c3c3] text-black border border-black rounded-none shadow-[4px_4px_0_#000]">
+    <div className="w-full max-w-3xl mx-auto bg-gray-200 text-black border border-black rounded-none shadow-[4px_4px_0_#000]">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="p-4">
         <TabsList className="bg-[#f0f0f0] flex">
           <TabsTrigger value="token">🧬 Token Risk</TabsTrigger>
@@ -42,28 +71,52 @@ export default function RiskScannerMainWindow() {
               placeholder="Paste a token address"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={handleKeyPress}
             />
             <Button className="bg-[#000080] text-white" onClick={handleScan}>
-              Check Risk
+              {loading ? "Loading..." : "Check Risk"}
             </Button>
+
+            {error && <p className="text-red-500">{error}</p>}
 
             {result && (
               <div className="bg-white p-4 border border-black shadow-inner mt-4">
                 <p>
-                  <strong>🔴 Threat Score:</strong> {result.riskScore} Risky 🔥
+                  <strong>🔴 Threat Score:</strong> {result.riskScore}
                 </p>
                 <p>
-                  <strong>🧠 Smart contract flags:</strong> {result.summary}
+                  <strong>👛 Wallet Type:</strong> {result.isContract}
                 </p>
                 <p>
-                  <strong>🕸️ Scam Links:</strong> {result.connections}
+                  <strong>🧹 Wash Trading:</strong> {result.washTradingScore}
                 </p>
                 <p>
-                  <strong>📦 Liquidity Locked:</strong> {result.liquidity}
+                  <strong>🔄 Total Transactions:</strong>{" "}
+                  {result.transactionCount}
+                </p>
+
+                <p>
+                  <strong>💰 Balance:</strong> {result.balance} SOL
                 </p>
                 <p>
-                  <strong>👻 Anon Team:</strong> {result.anonTeam}
+                  <strong>🫠 Has No Balance:</strong> {result.hasNoBalance}
                 </p>
+                <p>
+                  <strong>🚩 Spam SNS:</strong> {result.spamSNS}
+                </p>
+
+                {result.issues.length > 0 && (
+                  <div>
+                    <p>
+                      <strong>⚡ Issues Detected:</strong>
+                    </p>
+                    <ul className="list-disc ml-6">
+                      {result.issues.map((issue: string, index: number) => (
+                        <li key={index}>{issue}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
 
                 <div className="flex space-x-2 mt-4">
                   <Button variant="outline">
