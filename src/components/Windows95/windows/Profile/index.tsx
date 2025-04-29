@@ -1,36 +1,26 @@
-import { useState, useEffect } from "react";
 import { Wallet } from "lucide-react";
 import { useDesktop } from "@/components/context/DesktopContext";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { Tokens } from "./Tokens";
 import { Address } from "@/components/Address";
+import { DicebearAvatar } from "@/components/DicebearAvatar";
+import { Balance } from "@/components/Balance";
 
 export const UserWindow = () => {
-  const [address, setAddress] = useState<string>("");
-  const [solBalance, setSolBalance] = useState<number>(0);
-
   const { publicKey } = useWallet();
   const { openWindow: openWindowFn } = useDesktop();
 
-  useEffect(() => {
-    const fakeAddress = "9x9jv9fj93jf93jf93jf93jf9j3";
-    setAddress(fakeAddress);
-
-    // fake SOL balance temporarily placeholder
-    const fakeSolBalance = 2.34;
-    setSolBalance(fakeSolBalance);
-  }, []);
-
-  const avatarUrl = `https://api.dicebear.com/7.x/identicon/svg?seed=${address}`;
+  //clean this astrocity below later
 
   return (
     <div className="bg-gray-100  p-4 text-xs w-full">
       <div className="flex flex-col items-center mb-4">
-        <img
-          src={avatarUrl}
-          alt="User Avatar"
-          className="w-16 h-16 border-2 border-black bg-white mb-2"
-        />
+        {publicKey ? (
+          <DicebearAvatar seed={publicKey.toString()} />
+        ) : (
+          <DicebearAvatar seed="" />
+        )}
+
         <div className="flex items-center gap-2 text-[0.7rem] text-gray-800">
           {publicKey ? (
             <Address
@@ -48,7 +38,7 @@ export const UserWindow = () => {
         <span className="font-bold text-sm">SOL Balance:</span>
         <div className="flex items-center gap-1">
           <Wallet className="w-4 h-4" />
-          <span>{solBalance.toFixed(2)} SOL</span>
+          {publicKey && <Balance address={publicKey} className="text-sm" />}
         </div>
       </div>
 

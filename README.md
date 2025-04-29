@@ -115,7 +115,7 @@ Built with:
 ## ⚙️ Architecture Highlights
 
 - **Auth Adapter Layer** — Abstracts Civic + Web2 login + wallet login
-- **Security Layer** — All critical functions (like locking or sending tokens) are verified by dd.xyz
+- **Security Layer** — All critical functions (like locking or sending tokens) will be verified by dd.xyz
 
 ---
 

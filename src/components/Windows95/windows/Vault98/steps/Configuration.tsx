@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useMemo } from "react";
 import { format, isBefore, setHours, setMinutes, startOfDay } from "date-fns";
 import {

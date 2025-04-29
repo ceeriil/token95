@@ -6,6 +6,7 @@ import BootLoader from "./components/Windows95/BootLoader";
 import { BootScreen } from "./components/Windows95/BootScreen";
 import { Windows95Layout } from "./components/Windows95/Windows95Layout";
 import { AppProvider } from "./providers/AppProvider";
+import { Toaster } from "@/components/ui/toaster";
 
 function App() {
   const [bootStage, setBootStage] = useState<"loader" | "screen" | "desktop">(
@@ -22,6 +23,7 @@ function App() {
       )}
 
       {bootStage === "desktop" && <Windows95Layout />}
+      <Toaster />
     </AppProvider>
   );
 }

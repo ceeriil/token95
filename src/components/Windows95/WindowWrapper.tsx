@@ -118,7 +118,7 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
 
       <MenuBar />
 
-      <div className="flex-1 overflow-auto bg-white win95-inset h-full">
+      <div className="flex-1 overflow-auto bg-white win95-inset h-full max-h-[80vh]">
         <div className="h-full">{children}</div>
       </div>
     </div>
