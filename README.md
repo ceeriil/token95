@@ -23,6 +23,7 @@ Token98 is a retro Windows 98-style browser OS packed with mini decentralized to
 - Portfolio Tracker
 - AI assistant
 - Wallet Health Check (Improvement to Riskscanner)
+- At least one cool onchain game
 
 > Thinking of
 
@@ -31,6 +32,7 @@ Token98 is a retro Windows 98-style browser OS packed with mini decentralized to
 - Contract Viewer Verifier-simplifed solscan for normies
 - Push notification (but would require integrating a backend) - for existing app
 - Leaderboard??
+- A way to make this fun??
 
 > Nice to have for personalization
 

@@ -1,6 +1,7 @@
 import { useAddressBook } from "@/store";
 import { useState } from "react";
-import { Copy, Eye, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
+import { Address } from "@/components/Address";
 
 export const AddressBook = () => {
   const { addresses, addAddress, removeAddress } = useAddressBook();
@@ -13,18 +14,6 @@ export const AddressBook = () => {
       setName("");
       setAddress("");
     }
-  };
-
-  const handleCopy = (address: string) => {
-    navigator.clipboard.writeText(address);
-    alert("Address copied to clipboard!");
-  };
-
-  //View Address on Explorer. Future update should allow users 
-  //  choose their preferred explorer or we have our mini inapp 
-  //  explorer 😤
-  const handleView = (address: string) => {
-    window.open(`https://explorer.solana.com/address/${address}`, "_blank"); 
   };
 
   return (
@@ -73,24 +62,13 @@ export const AddressBook = () => {
             >
               <div className="flex flex-col">
                 <p className="font-bold text-sm">{entry.name}</p>
-                <div className="flex items-center gap-2 text-gray-700 text-[0.8rem]">
-                  <span className="truncate max-w-[120px] font-mono font-medium">
-                    {entry.address}
-                  </span>
-                  <button
-                    onClick={() => handleCopy(entry.address)}
-                    title="Copy Address"
-                    className="hover:opacity-80"
-                  >
-                    <Copy className="w-3 h-3" />
-                  </button>
-                  <button
-                    onClick={() => handleView(entry.address)}
-                    title="View in Explorer"
-                    className="hover:opacity-80"
-                  >
-                    <Eye className="w-3 h-3" />
-                  </button>
+                <div className="flex items-center gap-2 text-gray-700 text-[0.9rem]">
+                  <Address
+                    address={entry.address}
+                    type="account"
+                    length="long"
+                    iconSize="w-4 h-4"
+                  />
                 </div>
               </div>
 

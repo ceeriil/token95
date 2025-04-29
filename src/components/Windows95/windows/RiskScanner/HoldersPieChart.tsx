@@ -1,7 +1,6 @@
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
-import { Button } from "@/components/ui/button";
-import { Copy } from "lucide-react";
 import type { ITopHoldersReport } from "@/types/report";
+import { Address } from "@/components/Address";
 
 interface Props {
   holders: ITopHoldersReport[];
@@ -21,12 +20,8 @@ const COLORS = [
 ];
 
 export const HoldersPieChart = ({ holders }: Props) => {
-  const handleCopy = (address: string) => {
-    navigator.clipboard.writeText(address);
-  };
-
   return (
-    <div className="flex flex-col md:flex-row items-start gap-4 mt-4">
+    <div className="flex flex-col md:flex-row items-start gap-4 mt-4 ">
       <PieChart width={300} height={300}>
         <Pie
           data={holders}
@@ -45,26 +40,22 @@ export const HoldersPieChart = ({ holders }: Props) => {
         <Tooltip />
       </PieChart>
 
-      <div className="space-y-2">
+      <div className="space-y-2 min-w-[4rem]">
         {holders.map((holder, index) => (
           <div key={holder.accountAddress} className="flex items-center gap-2">
             <div
               className="w-3 h-3 rounded-full"
               style={{ backgroundColor: COLORS[index % COLORS.length] }}
             />
-            <p className="text-sm font-mono truncate max-w-[180px]">
-              {holder.accountAddress}
-            </p>
+            <Address
+              type="account"
+              address={holder.accountAddress}
+              className="text-xs"
+              iconSize="h-4 w-4"
+            />
             <span className="text-xs text-gray-500">
               ({holder.percentage}%)
             </span>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => handleCopy(holder.accountAddress)}
-            >
-              <Copy className="w-4 h-4" />
-            </Button>
           </div>
         ))}
       </div>

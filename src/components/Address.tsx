@@ -10,6 +10,7 @@ type AddressProps = {
   type: "transaction" | "account" | "contract";
   className?: string;
   length?: "short" | "long" | "full";
+  iconSize?: string;
 };
 
 export const Address: React.FC<AddressProps> = ({
@@ -17,6 +18,7 @@ export const Address: React.FC<AddressProps> = ({
   type,
   className,
   length = "short",
+  iconSize = "h-5 w-5",
 }) => {
   const [addressCopied, setAddressCopied] = useState(false);
 
@@ -44,6 +46,9 @@ export const Address: React.FC<AddressProps> = ({
     );
   }
 
+  //View Address on Explorer. Future update should allow users
+  //  choose their preferred explorer or we have our mini inapp
+  //  explorer 😤
   const url =
     type === "transaction"
       ? `https://solscan.io/tx/${address}`
@@ -52,15 +57,15 @@ export const Address: React.FC<AddressProps> = ({
       : `https://app.streamflow.finance/contract/solana/mainnet/${address}`;
 
   return (
-    <div className={`flex items-center text-center w-full  ${className}`}>
+    <div className={`flex items-center text-center w-full ${className}`}>
       <span>
-        <a href={url} target="blank_">
+        <a href={url} target="_blank" rel="noopener noreferrer">
           {truncateAddress(address, length)}
         </a>
       </span>
       {addressCopied ? (
         <CheckCircleIcon
-          className="ml-2.5 text-xl font-normal text-primary-content h-5 w-5 cursor-pointer"
+          className={`ml-2.5 text-xl font-normal text-primary-content ${iconSize} cursor-pointer`}
           aria-hidden="true"
         />
       ) : (
@@ -74,7 +79,7 @@ export const Address: React.FC<AddressProps> = ({
           }}
         >
           <DocumentDuplicateIcon
-            className="ml-2.5 text-xl font-normal text-primary-content h-5 w-5 cursor-pointer"
+            className={`ml-2.5 text-xl font-normal text-primary-content ${iconSize} cursor-pointer`}
             aria-hidden="true"
           />
         </CopyToClipboard>

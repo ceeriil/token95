@@ -26,6 +26,7 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isExpanded, setIsExpanded] = useState(false);
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (e.button === 0) {
@@ -34,6 +35,14 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
         x: e.clientX - position.x,
         y: e.clientY - position.y,
       });
+    }
+  };
+
+  const handleMenuSelect = (item: string) => {
+    if (item === "Help") {
+      setActiveMenu("Help");
+    } else {
+      setActiveMenu(null);
     }
   };
 
@@ -66,7 +75,7 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
     ? "fixed inset-0 flex flex-col"
     : isExpanded
     ? "absolute flex flex-col w-full h-full"
-    : "absolute flex flex-col w-[600px]";
+    : "absolute flex flex-col min-w-[600px]";
 
   return (
     <div
@@ -116,10 +125,16 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
         </div>
       </div>
 
-      <MenuBar />
+      <MenuBar onSelect={handleMenuSelect} activeItem={activeMenu} />
 
-      <div className="flex-1 overflow-auto bg-white win95-inset h-full max-h-[80vh]">
-        <div className="h-full">{children}</div>
+      <div className="flex-1 overflow-auto bg-white win95-inset h-full">
+        <div className="h-full">
+          {activeMenu === "Help" ? (
+            <div className="p-4">This is the Help page. 📖</div>
+          ) : (
+            children
+          )}
+        </div>
       </div>
     </div>
   );

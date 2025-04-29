@@ -7,7 +7,7 @@ export default function RiskScannerMainWindow() {
   const [activeTab, setActiveTab] = useState("wallet");
 
   return (
-    <div className="w-full max-w-3xl mx-auto bg-gray-200 text-black border border-black rounded-none shadow-[4px_4px_0_#000]">
+    <div className="w-full h-full mx-auto bg-gray-200 text-black rounded-none">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="p-4">
         <TabsList className="bg-[#f0f0f0] flex flex-wrap gap-2">
           <TabsTrigger value="wallet">👛 Address Risk</TabsTrigger>

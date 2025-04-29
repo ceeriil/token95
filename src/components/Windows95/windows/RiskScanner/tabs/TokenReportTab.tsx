@@ -62,7 +62,7 @@ export const TokenRiskTab = () => {
     result || {};
 
   return (
-    <div className="space-y-4 mt-4">
+    <div className="space-y-4 mt-4 ">
       <div className="flex gap-4">
         <Input
           placeholder="Paste a token address"
@@ -83,7 +83,7 @@ export const TokenRiskTab = () => {
       {error && <p className="text-red-500">{error}</p>}
 
       {result && (
-        <div className="bg-white border p-6 border-black space-y-6">
+        <div className="bg-white border p-6 border-black space-y-6 custom-scroll h-60 overflow-y-scroll">
           <div className="flex items-center gap-4">
             {logoUrl && (
               <img

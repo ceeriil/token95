@@ -106,27 +106,26 @@ export const Desktop: React.FC<DesktopProps> = ({
           <WalletMultiButton className="connect-btn" />
         </div>
 
-        {Object.entries(applications).map(([key, app]) => (
-          <div
-            key={key}
-            className="absolute "
-            style={{
-              left: iconPositions[key]?.x || 0,
-              top: iconPositions[key]?.y || 0,
-            }}
-            draggable
-            onDragStart={(e) => handleDragStart(e, key)}
-          >
-            <DesktopIcon
-              label={app.title.split(" - ")[0]}
-              icon={app.icon}
-              onClick={() => {
-                openWindow(key);
+        {Object.entries(applications)
+          .filter(([, app]) => app.showOnDesktop !== false)
+          .map(([key, app]) => (
+            <div
+              key={key}
+              className="absolute"
+              style={{
+                left: iconPositions[key]?.x || 0,
+                top: iconPositions[key]?.y || 0,
               }}
-            />
-          </div>
-        ))}
-
+              draggable
+              onDragStart={(e) => handleDragStart(e, key)}
+            >
+              <DesktopIcon
+                label={app.title.split(" - ")[0]}
+                icon={app.icon}
+                onClick={() => openWindow(key)}
+              />
+            </div>
+          ))}
         {Object.entries(applications).map(
           ([key, app]) =>
             activeWindows[key] &&
