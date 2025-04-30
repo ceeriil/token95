@@ -37,8 +37,8 @@ export const TokenRiskTab = () => {
           .topHolders as ITopHoldersReport[],
         devLaunchedToken24hr: data.details.dev_launched_tokens_in_24_hours,
         issues:
-          data.issues?.map(
-            (issue: IThreatReportIssue) => issue.tags[0].description
+          data.issues?.flatMap((issue: IThreatReportIssue) =>
+            issue.tags.map((tag) => tag.description)
           ) ?? [],
       });
     } else {
@@ -79,7 +79,7 @@ export const TokenRiskTab = () => {
       {error && <p className="text-red-500">{error}</p>}
 
       {result && (
-        <div className="bg-white border p-6 border-black space-y-6 custom-scroll h-60 overflow-y-scroll">
+        <div className="bg-white border p-6 border-black space-y-6 custom-scroll h-80 overflow-y-scroll">
           <div className="flex items-center gap-4">
             {logoUrl && (
               <img

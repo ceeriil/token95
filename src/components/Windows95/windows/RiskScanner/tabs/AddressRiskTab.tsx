@@ -38,8 +38,8 @@ export const AddressRiskTab = () => {
         address: inputValue,
         riskScore: `${Math.round(data.overallRisk || 0)}%`,
         isContract: data?.isContract
-          ? "Yes (Contract)"
-          : "No (Personal Wallet)",
+          ? "Contract Address"
+          : "Likely a Personal Wallet", //add check for token address others?
         washTradingScore: addressInfo?.wash_trading ?? "Unknown",
         transactionCount: addressInfo?.transaction_count ?? "Unknown",
         balance: addressInfo?.balance ?? "Unknown",
@@ -117,7 +117,7 @@ export const AddressRiskTab = () => {
 
       {result && (
         <div
-          className="bg-white p-4 border border-black shadow-inner mt-4 relative"
+          className="bg-white p-4 border border-black shadow-inner mt-4 relative custom-scroll h-80 overflow-y-scroll"
           ref={imageRef}
         >
           <p>

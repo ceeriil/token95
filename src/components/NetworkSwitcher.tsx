@@ -32,7 +32,11 @@ export function NetworkSwitcher() {
   const networkStatus = connected
     ? cluster.name === "mainnet"
       ? "mainnet"
-      : "testnet"
+      : cluster.name === "testnet"
+      ? "testnet"
+      : cluster.name === "devnet"
+      ? "devnet"
+      : "disconnected"
     : "disconnected";
 
   return (

@@ -37,10 +37,21 @@ export const SolTransfer = () => {
         warnings.push("⚠️ Address has **no balance**.");
       }
 
-      if (threatScore > 30) {
+      if (threatScore > 23 && threatScore <= 50) {
         warnings.push(
-          `⚠️ Threat Score is **${Math.round(threatScore)}%**, which is risky.`
+          `⚠️ Threat Score is **${Math.round(
+            threatScore
+          )}%**, which is medium risk.`
         );
+      }
+
+      if (threatScore > 50) {
+        warnings.push(
+          `⚠️ Wallet score is **${Math.round(
+            threatScore
+          )}%**, which is high risk. Proceed with caution`
+        );
+        return false;
       }
 
       if (isSpam) {
@@ -175,6 +186,7 @@ export const SolTransfer = () => {
               🚨 Warning before proceeding:
             </p>
             <p className="text-xs">{riskMessage}</p>
+            <p className="text-xs mt-1">Check riskscanner to get full report</p>
             <div className="flex mt-4 space-x-2">
               <button
                 onClick={handleConfirm}
