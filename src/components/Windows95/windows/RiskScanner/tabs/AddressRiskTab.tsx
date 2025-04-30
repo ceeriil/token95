@@ -36,6 +36,7 @@ export const AddressRiskTab = () => {
       console.log("ggg", data);
 
       setResult({
+        address: inputValue,
         riskScore: `${Math.round(data.overallRisk || 0)}%`,
         isContract: data?.isContract
           ? "Yes (Contract)"
@@ -46,8 +47,8 @@ export const AddressRiskTab = () => {
         hasNoBalance: addressInfo?.has_no_balance ? "Yes" : "No",
         spamSNS: addressInfo?.is_spam_sns ? "Yes" : "No",
         issues:
-          data.issues?.map(
-            (issue: IThreatReportIssue) => issue.tags[0].description
+          data.issues?.flatMap((issue: IThreatReportIssue) =>
+            issue.tags.map((tag) => tag.description)
           ) ?? [],
       });
     } else {

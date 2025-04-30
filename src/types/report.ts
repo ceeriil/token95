@@ -83,6 +83,7 @@ export interface IThreatReport {
 }
 
 export interface IThreatReportResult {
+  address?: string;
   riskScore: string;
   isContract: string;
   washTradingScore: number | string;
