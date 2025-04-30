@@ -1,10 +1,18 @@
 import { createContext, useContext } from "react";
 
-export const DesktopContext = createContext<{
-  openWindow: (window: string) => void;
-} | null>(null);
+export type AlertProps = {
+  message: string;
+  linkUrl?: string;
+  linkText?: string;
+};
 
-/* Desktop Context will be used to call to open an app window from any where in our app. Might expand this 🖥 */
+type DesktopContextType = {
+  openWindow: (window: string) => void;
+  openAlert: (alert: AlertProps) => void;
+};
+
+export const DesktopContext = createContext<DesktopContextType | null>(null);
+
 export const useDesktop = () => {
   const ctx = useContext(DesktopContext);
   if (!ctx)

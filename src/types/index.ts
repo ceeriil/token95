@@ -3,7 +3,7 @@ export interface Application {
   icon: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: React.ComponentType<any>;
-  help?: React.ComponentType;
+  guideBook?: React.ComponentType;
   showOnDesktop?: boolean;
 }
 

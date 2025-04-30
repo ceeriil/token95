@@ -11,6 +11,7 @@ interface WindowWrapperProps {
   isMaximized: boolean;
   defaultPosition: { x: number; y: number };
   zIndex: number;
+  help?: React.ComponentType;
 }
 
 export const WindowWrapper: React.FC<WindowWrapperProps> = ({
@@ -21,6 +22,7 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
   isMaximized,
   defaultPosition,
   zIndex,
+  help,
 }) => {
   const [position, setPosition] = useState(defaultPosition);
   const [isDragging, setIsDragging] = useState(false);
@@ -75,7 +77,7 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
     ? "fixed inset-0 flex flex-col"
     : isExpanded
     ? "absolute flex flex-col w-full h-full"
-    : "absolute flex flex-col min-w-[600px]";
+    : "absolute flex flex-col w-[600px]";
 
   return (
     <div
@@ -130,7 +132,19 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
       <div className="flex-1 overflow-auto bg-white win95-inset h-full">
         <div className="h-full">
           {activeMenu === "Help" ? (
-            <div className="p-4">This is the Help page. 📖</div>
+            help ? (
+              React.createElement(help)
+            ) : (
+              <div className="min-h-60 flex items-center font-medium text-center justify-center flex-col px-4">
+                <h2 className="text-xl">Help Not Found</h2>
+                <p>
+                  {" "}
+                  We can't provide the help you need right now. Our writers dip
+                  and the dev is probably sipping coffee somewhere and
+                  pretending to be productive
+                </p>
+              </div>
+            )
           ) : (
             children
           )}

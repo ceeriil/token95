@@ -1,5 +1,5 @@
 import { SolTransfer } from "../windows/SolTransfer";
-import { About } from "../windows/About";
+import { About } from "../windows/About/About";
 import { SwapPro } from "../windows/SwapPro";
 import { VaultStepper } from "../windows/Vault98";
 import { AddressBook } from "../windows/AddressBook";
@@ -8,6 +8,8 @@ import { UserWindow } from "../windows/Profile";
 import { UserManual } from "../windows/UserManual";
 import { BirdEye } from "../windows/BirdEye";
 import { Vault98Guide } from "../windows/Vault98/guide";
+import { AboutGuide } from "../windows/About/guide"; //this is way too lazy but I'm trying to do alot at the moment
+import { Theme } from "../windows/Theme";
 
 const icons = {
   SolTransfer: "transfer.png",
@@ -18,19 +20,21 @@ const icons = {
   riskScanner: "scanner.png",
   userManual: "manual.png",
   profile: "profile.png",
+  birdEye: "birdeye.png",
 };
 
 /* All our mini app will be exported here. TODO: expand this to include help manual 📖 and boolean value to tell if we show on desktop or not 🗿*/
 export const applications = {
-  transfer: {
-    title: "Bank",
-    icon: icons.SolTransfer,
-    content: SolTransfer,
-  },
   about: {
     title: "About",
     icon: icons.about,
     content: About,
+    guideBook: AboutGuide,
+  },
+  transfer: {
+    title: "Bank",
+    icon: icons.SolTransfer,
+    content: SolTransfer,
   },
   SwapPro: {
     title: "SwapPro",
@@ -61,12 +65,18 @@ export const applications = {
   },
   UserManual: {
     title: "User Manual",
-    icon: icons.riskScanner,
+    icon: icons.userManual,
     content: UserManual,
   },
   BirdEye: {
     title: "BirdEye",
-    icon: icons.riskScanner,
+    icon: icons.birdEye,
     content: BirdEye,
+  },
+  themes: {
+    title: "Themes",
+    icon: icons.birdEye,
+    content: Theme,
+    showOnDesktop: false,
   },
 } as const;
