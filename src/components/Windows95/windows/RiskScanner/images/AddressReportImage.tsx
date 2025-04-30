@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 import type { IThreatReportResult } from "@/types/report";
 import { Minimize2, Minus, X } from "lucide-react";
 import { DicebearAvatar } from "@/components/DicebearAvatar";

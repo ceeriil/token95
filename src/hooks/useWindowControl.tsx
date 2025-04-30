@@ -8,9 +8,7 @@ export function useWindowControl() {
   const [windowOrder, setWindowOrder] = useState<string[]>([]);
 
   const openWindow = (window: string) => {
-    console.log("hmm");
     setActiveWindows((prev) => ({ ...prev, [window]: true }));
-    console.log("hmm2", window, activeWindows);
     setWindowOrder((prev) => [...prev.filter((w) => w !== window), window]);
   };
 

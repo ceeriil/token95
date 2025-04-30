@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -25,8 +23,6 @@ export const TokenRiskTab = () => {
     setError(null);
 
     const data = await fetchAddressThreatReport(inputValue);
-
-    console.log("hello", data);
 
     if (data) {
       setResult({

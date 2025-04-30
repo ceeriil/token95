@@ -1,21 +1,30 @@
-import toast from "react-hot-toast";
+import { ToastAction } from "@/components/ui/toast";
+import { toast } from "./use-toast";
 
 export function useTransactionToast() {
   return (signature: string) => {
-    toast.success(
-      <div className={"text-center"}>
-        <div className="text-lg">Transaction sent</div>
-        <div className="text-sm">
-          <a
-            href={`https://explorer.solana.com/tx/${signature}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline text-blue-600 hover:text-blue-800"
-          >
-            View on Explorer
-          </a>
-        </div>
-      </div>
-    );
+    toast({
+      title: "✅ Transaction sent",
+      description: (
+        <a
+          href={`https://explorer.solana.com/tx/${signature}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline text-blue-600 hover:text-blue-800"
+        >
+          View on Solana Explorer
+        </a>
+      ),
+      action: (
+        <ToastAction
+          altText="View on Explorer"
+          onClick={() =>
+            window.open(`https://explorer.solana.com/tx/${signature}`, "_blank")
+          }
+        >
+          Open
+        </ToastAction>
+      ),
+    });
   };
 }

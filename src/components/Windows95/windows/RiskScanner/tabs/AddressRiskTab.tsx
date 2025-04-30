@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Clipboard, Share2, Download } from "lucide-react";
+import { LinkIcon, Share2, Download } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -33,7 +33,6 @@ export const AddressRiskTab = () => {
 
     if (data) {
       const addressInfo = data.details?.address_info;
-      console.log("ggg", data);
 
       setResult({
         address: inputValue,
@@ -58,12 +57,6 @@ export const AddressRiskTab = () => {
     setLoading(false);
   };
 
-  const handleCopy = async () => {
-    if (!imageRef.current) return;
-    const dataUrl = await toPng(imageRef.current);
-    await navigator.clipboard.writeText(dataUrl);
-  };
-
   const handleShare = () => {
     setShowModal(true);
   };
@@ -79,11 +72,7 @@ export const AddressRiskTab = () => {
 
   const handleShareImage = async () => {
     if (!modalImageRef.current) return;
-    const dataUrl = await toPng(modalImageRef.current);
-    const blob = await (await fetch(dataUrl)).blob();
-    const file = new File([blob], "wallet-risk-report.png", {
-      type: "image/png",
-    });
+    await toPng(modalImageRef.current);
 
     const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       "Check out this wallet risk score report 🧐👇 powered by https://dapp.webacy.com/"
@@ -128,7 +117,7 @@ export const AddressRiskTab = () => {
 
       {result && (
         <div
-          className="bg-white p-4 border border-black shadow-inner mt-4"
+          className="bg-white p-4 border border-black shadow-inner mt-4 relative"
           ref={imageRef}
         >
           <p>
@@ -167,13 +156,24 @@ export const AddressRiskTab = () => {
           )}
 
           <div className="flex space-x-2 mt-4">
-            <Button variant="outline" onClick={handleCopy}>
-              <Clipboard className="w-4 h-4 mr-1" /> Copy
-            </Button>
             <Button variant="outline" onClick={handleShare}>
               <Share2 className="w-4 h-4 mr-1" /> Share
             </Button>
+            <a
+              href="https://dapp.webacy.com/"
+              target="_blank"
+              className="border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground cursor-pointer flex text-sm h-9 px-4  rounded-md items-center "
+            >
+              <LinkIcon className="w-4 h-4 mr-1" />{" "}
+              <span className="ml-2">View Full Report</span>
+            </a>
           </div>
+
+          <img
+            src="/img/dd.svg"
+            width={100}
+            className="absolute right-3 bottom-2"
+          />
         </div>
       )}
 
