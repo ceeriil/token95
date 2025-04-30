@@ -28,7 +28,13 @@ export function ContextMenu({ x, y }: ContextMenuProps) {
       <ContextMenuGroup>
         <ContextMenuItem
           text="Delete"
-          onClick={() => console.log("delete clicked")}
+          onClick={() => {
+            openAlert({
+              message: `Yo bruh, why you tryna delete that 😭 This ain't the way. We can fix it, fr"`,
+              linkUrl: "https://x.com/ceeriil",
+              linkText: "Talk to someone about it",
+            });
+          }}
         />
       </ContextMenuGroup>
       <ContextMenuGroup>

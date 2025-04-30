@@ -7,12 +7,27 @@ export default function RiskScannerMainWindow() {
   const [activeTab, setActiveTab] = useState("wallet");
 
   return (
-    <div className="w-full h-full mx-auto bg-gray-200 text-black rounded-none">
+    <div className="w-full h-full mx-auto bg-gray-100 text-black rounded-none">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="p-4">
-        <TabsList className="bg-[#f0f0f0] flex flex-wrap gap-2">
-          <TabsTrigger value="wallet">👛 Address Risk</TabsTrigger>
-          <TabsTrigger value="token">Token Risk</TabsTrigger>
-          <TabsTrigger value="contract">🪪 Contract Risk</TabsTrigger>
+        <TabsList className=" flex flex-wrap gap-2 rounded-none w-auto">
+          <TabsTrigger
+            value="wallet"
+            className="rounded-none border border-black"
+          >
+            👛 Address Risk
+          </TabsTrigger>
+          <TabsTrigger
+            value="token"
+            className="rounded-none border border-black"
+          >
+            🪙 Token Risk
+          </TabsTrigger>
+          <TabsTrigger
+            value="contract"
+            className="rounded-none border border-black"
+          >
+            📜 Contract Risk
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="wallet">

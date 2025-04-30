@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Clipboard, Printer, Share2, Download } from "lucide-react";
+import { Clipboard, Share2, Download } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -23,6 +23,7 @@ export const AddressRiskTab = () => {
   const imageRef = useRef<HTMLDivElement>(null);
   const modalImageRef = useRef<HTMLDivElement>(null);
 
+  //this component is a mess. clean this up
   const handleScan = async () => {
     if (!inputValue) return;
     setLoading(true);
@@ -32,6 +33,7 @@ export const AddressRiskTab = () => {
 
     if (data) {
       const addressInfo = data.details?.address_info;
+      console.log("ggg", data);
 
       setResult({
         riskScore: `${Math.round(data.overallRisk || 0)}%`,
@@ -83,7 +85,7 @@ export const AddressRiskTab = () => {
     });
 
     const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-      "Check out this wallet risk score report 🧐👇"
+      "Check out this wallet risk score report 🧐👇 powered by https://dapp.webacy.com/"
     )}`;
 
     window.open(shareUrl, "_blank");
@@ -96,18 +98,32 @@ export const AddressRiskTab = () => {
   };
 
   return (
-    <div className="space-y-2 mt-4">
-      <Input
-        placeholder="Paste a token address"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        onKeyDown={handleKeyPress}
-      />
-      <Button className="bg-[#000080] text-white" onClick={handleScan}>
-        {loading ? "Loading..." : "Check Risk"}
-      </Button>
+    <div className="space-y-2 mt-4 ">
+      <div className="flex gap-4">
+        <Input
+          placeholder="Paste a token address"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyDown={handleKeyPress}
+          className="border border-black rounded-none"
+        />
+        <Button
+          className="bg-blue-500 text-white border border-black shadow-[2px_2px_0_#000] hover:bg-blue-600 text-sm px-2 py-1.5"
+          onClick={handleScan}
+        >
+          {loading ? "Scanning..." : "Check Risk"}
+        </Button>
+      </div>
 
       {error && <p className="text-red-500">{error}</p>}
+
+      {!result && !loading && !error && (
+        <div className="mt-4 bg-white border border-black shadow-inner p-4 text-sm italic text-gray-600">
+          📭 No report yet — paste an address and hit that{" "}
+          <span className="font-semibold">Check Risk</span> button to reveal the
+          tea 🫖.
+        </div>
+      )}
 
       {result && (
         <div
@@ -162,7 +178,7 @@ export const AddressRiskTab = () => {
 
       {result && (
         <Dialog open={showModal} onOpenChange={setShowModal}>
-          <DialogContent className="p-4 space-y-4 z-[999999]">
+          <DialogContent className="p-4 space-y-4 z-[999999] border-black rounded-none border-2 min-w-[650px]">
             <DialogHeader>
               <DialogTitle>Preview your Threat Report</DialogTitle>
               <DialogDescription>

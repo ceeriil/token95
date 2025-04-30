@@ -69,14 +69,14 @@ export const TokenRiskTab = () => {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyPress}
-          className="w-full"
+          className="w-full border border-black rounded-none"
         />
         <Button
-          className="bg-[#000080] text-white"
+          className="bg-blue-500 text-white border border-black shadow-[2px_2px_0_#000] hover:bg-blue-600 text-sm px-2 py-1.5"
           onClick={handleScan}
           disabled={loading}
         >
-          {loading ? "Loading..." : "Check Risk"}
+          {loading ? "Scanning..." : "Check Risk"}
         </Button>
       </div>
 

@@ -33,6 +33,7 @@ Token98 is a retro Windows 98-style browser OS packed with mini decentralized to
 - Push notification (but would require integrating a backend) - for existing app
 - Leaderboard??
 - A way to make this fun??
+- Trade NFT? (or we just link to magic eden)
 
 > Nice to have for personalization
 
