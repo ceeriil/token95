@@ -11,6 +11,7 @@ interface WindowWrapperProps {
   isMaximized: boolean;
   defaultPosition: { x: number; y: number };
   zIndex: number;
+  help?: React.ComponentType;
 }
 
 export const WindowWrapper: React.FC<WindowWrapperProps> = ({
@@ -21,11 +22,13 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
   isMaximized,
   defaultPosition,
   zIndex,
+  help,
 }) => {
   const [position, setPosition] = useState(defaultPosition);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isExpanded, setIsExpanded] = useState(false);
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (e.button === 0) {
@@ -34,6 +37,14 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
         x: e.clientX - position.x,
         y: e.clientY - position.y,
       });
+    }
+  };
+
+  const handleMenuSelect = (item: string) => {
+    if (item === "Help") {
+      setActiveMenu("Help");
+    } else {
+      setActiveMenu(null);
     }
   };
 
@@ -116,10 +127,28 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
         </div>
       </div>
 
-      <MenuBar />
+      <MenuBar onSelect={handleMenuSelect} activeItem={activeMenu} />
 
       <div className="flex-1 overflow-auto bg-white win95-inset h-full">
-        <div className="h-full">{children}</div>
+        <div className="h-full">
+          {activeMenu === "Help" ? (
+            help ? (
+              React.createElement(help)
+            ) : (
+              <div className="min-h-60 flex items-center font-medium text-center justify-center flex-col px-4">
+                <h2 className="text-xl">Help Not Found</h2>
+                <p>
+                  {" "}
+                  We can't provide the help you need right now. Our writers dip
+                  and the dev is probably sipping coffee somewhere and
+                  pretending to be productive
+                </p>
+              </div>
+            )
+          ) : (
+            children
+          )}
+        </div>
       </div>
     </div>
   );

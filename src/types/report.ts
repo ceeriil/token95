@@ -29,6 +29,13 @@ export interface IThreatReportIssue {
   tags: IThreatReportTag[];
 }
 
+export interface ITopHoldersReport {
+  amount: number;
+  percentage: number;
+  ownerAddress: string;
+  accountAddress: string;
+}
+
 export interface IAddressInfo {
   balance: number;
   expiresAt: number;
@@ -54,6 +61,9 @@ export interface IThreatReportDetails {
     total_volume: number;
     price_change_24h: number;
     price_change_percentage_24h: number;
+    ownershipDistribution: {
+      topHolders: ITopHoldersReport[];
+    };
   };
   token_info: {
     links: ITokenInfoLinks;
@@ -73,6 +83,7 @@ export interface IThreatReport {
 }
 
 export interface IThreatReportResult {
+  address?: string;
   riskScore: string;
   isContract: string;
   washTradingScore: number | string;
@@ -81,4 +92,17 @@ export interface IThreatReportResult {
   hasNoBalance: string;
   spamSNS: string;
   issues: string[];
+}
+
+export interface ITokenReportResult {
+  riskScore: string;
+  logoUrl: string;
+  tokenName: string;
+  tokenSymbol: string;
+  contractAddress: string;
+  isPumpFun: boolean;
+  issues: string[];
+  currentPrice: number;
+  ownershipDistribution: ITopHoldersReport[];
+  devLaunchedToken24hr: number;
 }

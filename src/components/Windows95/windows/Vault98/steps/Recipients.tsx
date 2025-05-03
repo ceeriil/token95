@@ -1,5 +1,3 @@
-"use client";
-
 import { useFormContext } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { useWallet } from "@solana/wallet-adapter-react";
