@@ -32,6 +32,7 @@ export const BirdEye = () => {
         title="BirdEye"
         width="100%"
         height="100%"
+        allow="clipboard-write"
         className="bg-white min-h-[25rem]"
         style={{ border: "none" }}
         sandbox="allow-same-origin allow-scripts allow-forms"

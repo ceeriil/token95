@@ -146,6 +146,10 @@
   color: #000;
 }
 
+.wallet-adapter-modal-container .wallet-adapter-button:not([disabled]):hover {
+  color: #fff;
+}
+
 .wallet-adapter-button:not([disabled]):hover {
   background-color: #dcdcdc;
   border: 2px solid #808080;
