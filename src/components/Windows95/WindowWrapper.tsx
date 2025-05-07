@@ -30,6 +30,15 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setIsDragging(true);
+    setDragOffset({
+      x: touch.clientX - position.x,
+      y: touch.clientY - position.y,
+    });
+  };
+
   const handleMouseDown = (e: React.MouseEvent) => {
     if (e.button === 0) {
       setIsDragging(true);
@@ -58,18 +67,30 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
       }
     };
 
-    const handleMouseUp = () => {
-      setIsDragging(false);
+    const handleTouchMove = (e: TouchEvent) => {
+      if (isDragging && !isMaximized && !isExpanded) {
+        const touch = e.touches[0];
+        setPosition({
+          x: touch.clientX - dragOffset.x,
+          y: touch.clientY - dragOffset.y,
+        });
+      }
     };
+
+    const stopDragging = () => setIsDragging(false);
 
     if (isDragging) {
       document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
+      document.addEventListener("mouseup", stopDragging);
+      document.addEventListener("touchmove", handleTouchMove);
+      document.addEventListener("touchend", stopDragging);
     }
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("mouseup", stopDragging);
+      document.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("touchend", stopDragging);
     };
   }, [isDragging, dragOffset, isMaximized, isExpanded]);
 
@@ -92,6 +113,7 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
       <div
         className="bg-gray-300 text-black px-2 py-1 flex justify-between items-center cursor-move select-none "
         onMouseDown={handleMouseDown}
+        onTouchStart={handleTouchStart}
         role="header"
         aria-live="polite"
       >
