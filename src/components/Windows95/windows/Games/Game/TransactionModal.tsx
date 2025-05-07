@@ -22,7 +22,9 @@ export function TransactionModal(props: { onClose: () => void }) {
   const [initializing, setInitializing] = React.useState(false);
   const program = useGambaProgram();
   const sendTransaction = useSendTransaction();
+
   const userAddress = useWalletAddress();
+  console.log(userAddress);
   const gamba = useGamba();
   const game = useAccount(getGameAddress(userAddress), decodeGame);
   const txStore = useTransactionStore();

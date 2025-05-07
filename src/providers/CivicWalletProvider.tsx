@@ -9,6 +9,7 @@ import { WalletError } from "@solana/wallet-adapter-base";
 
 import "@solana/wallet-adapter-react-ui/styles.css";
 import { useCluster } from "@/lib/cluster";
+import { GameProvider } from "./GameProvider";
 
 interface Props {
   children: ReactNode;
@@ -25,14 +26,17 @@ export const CivicWalletProvider: FC<Props> = ({ children }) => {
   }, []);
 
   return (
-    <ConnectionProvider endpoint={endpoint}>
+    <ConnectionProvider
+      endpoint={endpoint}
+      config={{ commitment: "processed" }}
+    >
       <WalletProvider wallets={[]} onError={onError} autoConnect={true}>
         <WalletModalProvider>
           <CivicAuthProvider
             clientId={CLIENT_ID}
             autoConnectEmbeddedWallet={false}
           >
-            {children}
+            <GameProvider>{children}</GameProvider>
           </CivicAuthProvider>
         </WalletModalProvider>
       </WalletProvider>

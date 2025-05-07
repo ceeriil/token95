@@ -10,12 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@coral-xyz/anchor": "^0.27.0",
     "@civic/auth": "^0.4.7",
     "@civic/auth-web3": "^0.5.4",
     "@dicebear/collection": "^9.2.2",
     "@dicebear/core": "^9.2.2",
     "@heroicons/react": "^2.2.0",
     "@metaplex-foundation/mpl-token-metadata": "^3.4.0",
+    "@preact/signals-react": "^3.0.1",
     "@radix-ui/react-dialog": "^1.1.11",
     "@radix-ui/react-dropdown-menu": "^2.1.12",
     "@radix-ui/react-popover": "^1.1.11",
@@ -26,6 +28,8 @@
     "@radix-ui/react-toast": "^1.2.11",
     "@radix-ui/react-tooltip": "^1.2.4",
     "@radix-ui/themes": "^3.2.1",
+    "@react-three/drei": "^10.0.7",
+    "@react-three/fiber": "^9.1.2",
     "@solana/spl-token": "^0.4.13",
     "@solana/wallet-adapter-base": "^0.9.25",
     "@solana/wallet-adapter-react": "^0.15.37",
@@ -35,15 +39,19 @@
     "@tanstack/react-query": "^5.74.4",
     "autoprefixer": "^10.4.17",
     "bn.js": "^5.2.2",
+    "@vercel/kv": "^3.0.0",
+    "buffer": "^6.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
-    "gamba-core-v2": "^0.4.1",
-    "gamba-react-ui-v2": "^0.7.1",
-    "gamba-react-v2": "^1.2.1",
+    "gamba-react-ui-v2": "0.7.0",
+    "gamba-react-v2": "1.2.0",
+    "gamba-core-v2": "0.4.0",
     "html-to-image": "^1.11.13",
     "jotai": "^2.12.3",
     "lucide-react": "^0.487.0",
+    "html2canvas": "^1.4.1",
+    "matter-js": "^0.19.0",
     "next-themes": "^0.4.6",
     "react": "^18.2.0",
     "react-copy-to-clipboard": "^5.1.0",
@@ -55,11 +63,12 @@
     "recharts": "^2.15.3",
     "sonner": "^2.0.3",
     "styled-components": "^6.1.17",
-    "swr": "^2.3.3",
+    "swr": "^2.2.4",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
+    "three": "^0.176.0",
     "zod": "^3.24.3",
-    "zustand": "^5.0.3"
+    "zustand": "^4.4.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
@@ -76,7 +85,10 @@
     "tailwindcss": "^3.4.1",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
+    "@types/matter-js": "^0.19.5",
+    "@types/three": "^0.161.2",
     "vite": "^6.2.0",
-    "vite-plugin-node-polyfills": "^0.23.0"
+    "vite-plugin-node-polyfills": "^0.23.0",
+    "vite-plugin-pwa": "^0.17.4"
   }
 }

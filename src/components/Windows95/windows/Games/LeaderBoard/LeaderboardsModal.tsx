@@ -1,10 +1,6 @@
-import React, { useState } from 'react'
-import { Modal } from '../../components/Modal'
-import {
-  useLeaderboardData,
-  Period,
-  Player,           
-} from '../../hooks/useLeaderboardData' 
+import React, { useState } from "react";
+import { Modal } from "./../components/Modal";
+import { useLeaderboardData, Period, Player } from "@/hooks/useLeaderboardData";
 
 import {
   ModalContent,
@@ -26,24 +22,24 @@ import {
   LoadingText,
   ErrorText,
   EmptyStateText,
-} from './LeaderboardsModal.styles'
+} from "./LeaderboardsModal.styles";
 
 interface LeaderboardsModalProps {
-  onClose: () => void
-  creator: string
+  onClose: () => void;
+  creator: string;
 }
 
 const LeaderboardsModal: React.FC<LeaderboardsModalProps> = ({
   onClose,
   creator,
 }) => {
-  const [period, setPeriod] = useState<Period>('weekly') // default
+  const [period, setPeriod] = useState<Period>("weekly"); // default
 
   const {
     data: leaderboard,
     loading,
     error,
-  } = useLeaderboardData(period, creator)
+  } = useLeaderboardData(period, creator);
 
   return (
     <Modal onClose={onClose}>
@@ -52,24 +48,24 @@ const LeaderboardsModal: React.FC<LeaderboardsModalProps> = ({
         <HeaderSection>
           <Title>Leaderboard</Title>
           <Subtitle>
-            Top players by volume{' '}
-            {period === 'weekly' ? 'this week' : 'this month'} (USD)
+            Top players by volume{" "}
+            {period === "weekly" ? "this week" : "this month"} (USD)
           </Subtitle>
         </HeaderSection>
 
         {/* ────── tabs ────── */}
         <TabRow>
           <TabButton
-            $selected={period === 'weekly'}
-            onClick={() => setPeriod('weekly')}
+            $selected={period === "weekly"}
+            onClick={() => setPeriod("weekly")}
             disabled={loading}
           >
             Weekly
           </TabButton>
 
           <TabButton
-            $selected={period === 'monthly'}
-            onClick={() => setPeriod('monthly')}
+            $selected={period === "monthly"}
+            onClick={() => setPeriod("monthly")}
             disabled={loading}
           >
             Monthly
@@ -89,14 +85,14 @@ const LeaderboardsModal: React.FC<LeaderboardsModalProps> = ({
             </ListHeader>
 
             {leaderboard.map((entry: Player, index) => {
-              const rank = index + 1
+              const rank = index + 1;
               return (
                 <RankItem key={entry.user} $isTop3={rank <= 3}>
-                  <RankNumber rank={rank}>{rank > 3 ? rank : ''}</RankNumber>
+                  <RankNumber rank={rank}>{rank > 3 ? rank : ""}</RankNumber>
                   <PlayerInfo title={entry.user}>{entry.user}</PlayerInfo>
                   <VolumeAmount>{formatVolume(entry.usd_volume)}</VolumeAmount>
                 </RankItem>
-              )
+              );
             })}
           </LeaderboardList>
         ) : (
@@ -104,7 +100,7 @@ const LeaderboardsModal: React.FC<LeaderboardsModalProps> = ({
         )}
       </ModalContent>
     </Modal>
-  )
-}
+  );
+};
 
-export default LeaderboardsModal
+export default LeaderboardsModal;

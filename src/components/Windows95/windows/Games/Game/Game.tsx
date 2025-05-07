@@ -129,7 +129,7 @@ function CustomRenderer() {
 }
 
 export default function Game() {
-  const { gameId } = { gameId: "coin" };
+  const { gameId } = { gameId: "dice" };
   const game = GAMES.find((x) => x.id === gameId);
 
   return (

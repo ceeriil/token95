@@ -183,6 +183,13 @@
   animation: blink 1s infinite;
 }
 
+.game-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("/img/game.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

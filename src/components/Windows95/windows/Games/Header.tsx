@@ -5,17 +5,15 @@ import {
   useCurrentPool,
   useGambaPlatformContext,
   useUserBalance,
-} from 'gamba-react-ui-v2'
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import styled from 'styled-components'
-import { Modal } from '../components/Modal'
-import LeaderboardsModal from '../sections/LeaderBoard/LeaderboardsModal'
-import { PLATFORM_JACKPOT_FEE, PLATFORM_CREATOR_ADDRESS } from '../constants'
-import { useMediaQuery } from '../hooks/useMediaQuery'
-import TokenSelect from './TokenSelect'
-import { UserButton } from './UserButton'
-import { ENABLE_LEADERBOARD } from '../constants'
+} from "gamba-react-ui-v2";
+import React from "react";
+import styled from "styled-components";
+import { Modal } from "./components/Modal";
+import LeaderboardsModal from "./LeaderBoard/LeaderboardsModal";
+import { PLATFORM_JACKPOT_FEE, PLATFORM_CREATOR_ADDRESS } from "./constants";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import TokenSelect from "./TokenSelect";
+import { ENABLE_LEADERBOARD } from "./constants";
 
 const Bonus = styled.button`
   all: unset;
@@ -30,7 +28,7 @@ const Bonus = styled.button`
   &:hover {
     background: white;
   }
-`
+`;
 
 const StyledHeader = styled.div`
   display: flex;
@@ -38,30 +36,20 @@ const StyledHeader = styled.div`
   justify-content: space-between;
   width: 100%;
   padding: 10px;
-  background: #000000cc;
-  backdrop-filter: blur(20px);
-  position: fixed;
+
   top: 0;
   left: 0;
-  z-index: 1000;
-`
-
-const Logo = styled(NavLink)`
-  height: 35px;
-  margin: 0 15px;
-  & > img {
-    height: 120%;
-  }
-`
+  color: #fff;
+`;
 
 export default function Header() {
-  const pool = useCurrentPool()
-  const context = useGambaPlatformContext()
-  const balance = useUserBalance()
-  const isDesktop = useMediaQuery('lg') 
-  const [showLeaderboard, setShowLeaderboard] = React.useState(false)
-  const [bonusHelp, setBonusHelp] = React.useState(false)
-  const [jackpotHelp, setJackpotHelp] = React.useState(false)
+  const pool = useCurrentPool();
+  const context = useGambaPlatformContext();
+  const balance = useUserBalance();
+  const isDesktop = useMediaQuery("lg");
+  const [showLeaderboard, setShowLeaderboard] = React.useState(false);
+  const [bonusHelp, setBonusHelp] = React.useState(false);
+  const [jackpotHelp, setJackpotHelp] = React.useState(false);
 
   return (
     <>
@@ -69,11 +57,12 @@ export default function Header() {
         <Modal onClose={() => setBonusHelp(false)}>
           <h1>Bonus ✨</h1>
           <p>
-            You have <b>
+            You have{" "}
+            <b>
               <TokenValue amount={balance.bonusBalance} />
-            </b>{' '}
-            worth of free plays. This bonus will be applied automatically when you
-            play.
+            </b>{" "}
+            worth of free plays. This bonus will be applied automatically when
+            you play.
           </p>
           <p>Note that a fee is still needed from your wallet for each play.</p>
         </Modal>
@@ -82,7 +71,7 @@ export default function Header() {
       {jackpotHelp && (
         <Modal onClose={() => setJackpotHelp(false)}>
           <h1>Jackpot 💰</h1>
-          <p style={{ fontWeight: 'bold' }}>
+          <p style={{ fontWeight: "bold" }}>
             There&apos;s <TokenValue amount={pool.jackpotBalance} /> in the
             Jackpot.
           </p>
@@ -92,12 +81,14 @@ export default function Header() {
             the pool resets and grows again from there.
           </p>
           <p>
-            You pay a maximum of{' '}
-            {(PLATFORM_JACKPOT_FEE * 100).toLocaleString(undefined, { maximumFractionDigits: 4 })}
+            You pay a maximum of{" "}
+            {(PLATFORM_JACKPOT_FEE * 100).toLocaleString(undefined, {
+              maximumFractionDigits: 4,
+            })}
             % of each wager for a chance to win.
           </p>
-          <label style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            {context.defaultJackpotFee === 0 ? 'DISABLED' : 'ENABLED'}
+          <label style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            {context.defaultJackpotFee === 0 ? "DISABLED" : "ENABLED"}
             <GambaUi.Switch
               checked={context.defaultJackpotFee > 0}
               onChange={(checked) =>
@@ -116,18 +107,16 @@ export default function Header() {
       )}
 
       <StyledHeader>
-        <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-          <Logo to="/">
-            <img alt="Gamba logo" src="/logo.svg" />
-          </Logo>
-        </div>
+        <div
+          style={{ display: "flex", gap: "20px", alignItems: "center" }}
+        ></div>
 
         <div
           style={{
-            display: 'flex',
-            gap: '10px',
-            alignItems: 'center',
-            position: 'relative',
+            display: "flex",
+            gap: "10px",
+            alignItems: "center",
+            position: "relative",
           }}
         >
           {pool.jackpotBalance > 0 && (
@@ -150,9 +139,8 @@ export default function Header() {
           )}
 
           <TokenSelect />
-          <UserButton />
         </div>
       </StyledHeader>
     </>
-  )
+  );
 }

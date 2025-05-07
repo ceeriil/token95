@@ -4,7 +4,7 @@ import { useTransactionError } from "gamba-react-v2";
 import React from "react";
 import { Modal } from "./components/Modal";
 import { TOS_HTML, ENABLE_TROLLBOX } from "./constants";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/useToast";
 import { useUserStore } from "@/hooks/useUserStore";
 import Dashboard from "./Dashboard/Dashboard";
 import Game from "./Game/Game";
@@ -47,7 +47,7 @@ export default function Games() {
   const set = useUserStore((state) => state.set);
 
   return (
-    <>
+    <div className="min-w-[700px] game-bg">
       {newcomer && (
         <Modal>
           <h1>Welcome</h1>
@@ -66,10 +66,10 @@ export default function Games() {
       <MainWrapper>
         <Dashboard />
         <Game />
-        <h2 style={{ textAlign: "center" }}>Recent Plays</h2>
-        <RecentPlays />
+        {/*     <h2 style={{ textAlign: "center" }}>Recent Plays</h2>
+        <RecentPlays /> */}
       </MainWrapper>
       {ENABLE_TROLLBOX && <TrollBox />}
-    </>
+    </div>
   );
 }

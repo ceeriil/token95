@@ -11,7 +11,7 @@ const tileAnimation = keyframes`
   }
 `;
 
-const StyledGameCard = styled(NavLink)<{
+const StyledGameCard = styled.div<{
   $small: boolean;
   $background: string;
 }>`
@@ -108,11 +108,7 @@ const StyledGameCard = styled(NavLink)<{
 
 export function GameCard({ game }: { game: GameBundle }) {
   return (
-    <StyledGameCard
-      to={"/" + game.id}
-      $small={false}
-      $background={game.meta?.background}
-    >
+    <StyledGameCard $small={false} $background={game.meta?.background}>
       <div className="background" />
       <div
         className="image"

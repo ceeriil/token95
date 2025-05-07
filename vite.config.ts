@@ -6,6 +6,10 @@ import { nodePolyfills } from "vite-plugin-node-polyfills";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), nodePolyfills()],
+  assetsInclude: ["**/*.glb"],
+  define: {
+    "process.env.ANCHOR_BROWSER": true,
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

@@ -10,6 +10,7 @@ import { BirdEye } from "../windows/BirdEye";
 import { Vault98Guide } from "../windows/Vault98/guide";
 import { AboutGuide } from "../windows/About/guide"; //this is way too lazy but I'm trying to do alot at the moment
 import { Theme } from "../windows/Theme";
+import Games from "../windows/Games";
 
 const icons = {
   SolTransfer: "transfer.png",
@@ -78,5 +79,10 @@ export const applications = {
     icon: icons.birdEye,
     content: Theme,
     showOnDesktop: false,
+  },
+  games: {
+    title: "Games",
+    icon: icons.birdEye,
+    content: Games,
   },
 } as const;
