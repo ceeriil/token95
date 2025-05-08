@@ -22,6 +22,7 @@ const icons = {
   userManual: "manual.png",
   profile: "profile.png",
   birdEye: "birdeye.png",
+  games: "games.png",
 };
 
 /* All our mini app will be exported here. TODO: expand this to include help manual 📖 and boolean value to tell if we show on desktop or not 🗿*/
@@ -82,7 +83,7 @@ export const applications = {
   },
   games: {
     title: "Games",
-    icon: icons.birdEye,
+    icon: icons.games,
     content: Games,
   },
 } as const;
