@@ -30,7 +30,7 @@ const pulse = keyframes`
   }
 `
 
-const StyledSlot = styled.div<{$good: boolean}>`
+const StyledSlot = styled.div<{$good: boolean; $revealed: boolean}>`
   width: 100px;
   aspect-ratio: 1/1.5;
   position: relative;

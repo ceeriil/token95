@@ -1,6 +1,6 @@
 import { GameBundle } from "gamba-react-ui-v2";
-import React from "react";
 import styled, { keyframes } from "styled-components";
+import { useViewStore } from "@/hooks/useViewState";
 
 const tileAnimation = keyframes`
   0% {
@@ -107,8 +107,14 @@ const StyledGameCard = styled.div<{
 `;
 
 export function GameCard({ game }: { game: GameBundle }) {
+  const setGame = useViewStore((state) => state.setGame);
+
   return (
-    <StyledGameCard $small={false} $background={game.meta?.background}>
+    <StyledGameCard
+      $small={false}
+      $background={game.meta?.background}
+      onClick={() => setGame(game)}
+    >
       <div className="background" />
       <div
         className="image"

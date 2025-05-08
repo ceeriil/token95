@@ -12,7 +12,7 @@ import Header from "./Header";
 import { MainWrapper, TosInner, TosWrapper } from "./styles";
 import TrollBox from "./components/TrollBox";
 import Toasts from "./Toasts";
-import RecentPlays from "./RecentPlays/RecentPlays";
+import { useViewStore } from "@/hooks/useViewState";
 
 function ErrorHandler() {
   const walletModal = useWalletModal();
@@ -45,9 +45,10 @@ function ErrorHandler() {
 export default function Games() {
   const newcomer = useUserStore((state) => state.newcomer);
   const set = useUserStore((state) => state.set);
+  const view = useViewStore((state) => state.view);
 
   return (
-    <div className="min-w-[700px] game-bg">
+    <div className="min-w-[700px] game-bg ">
       {newcomer && (
         <Modal>
           <h1>Welcome</h1>
@@ -64,10 +65,7 @@ export default function Games() {
       <Header />
       <Toasts />
       <MainWrapper>
-        <Dashboard />
-        <Game />
-        {/*     <h2 style={{ textAlign: "center" }}>Recent Plays</h2>
-        <RecentPlays /> */}
+        {view === "dashboard" ? <Dashboard /> : <Game />}
       </MainWrapper>
       {ENABLE_TROLLBOX && <TrollBox />}
     </div>

@@ -2,11 +2,10 @@ import { useGLTF, useTexture } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import React from "react";
 import { Group } from "three";
-import { clamp } from "three/src/math/MathUtils";
 import MODEL_COIN from "../Flip/Coin.glb";
 import TEXTURE_HEADS from "./heads.png";
 import TEXTURE_TAILS from "./tails.png";
-
+import { clamp } from "three/src/math/MathUtils.js";
 export { TEXTURE_HEADS, TEXTURE_TAILS };
 
 function CoinModel() {

@@ -1,6 +1,5 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
-import React from "react";
 import styled from "styled-components";
 import { useUserStore } from "@/hooks/useUserStore";
 

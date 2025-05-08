@@ -1,7 +1,7 @@
-import React from 'react'
-import styled, { css } from 'styled-components'
-import { useMediaQuery } from '@/hooks/useMediaQuery'
-import { useToastStore, type Toast as TToast } from '@/hooks/useToast'
+import React from "react";
+import styled, { css } from "styled-components";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useToastStore, type Toast as TToast } from "@/hooks/useToast";
 
 const StyledToasts = styled.div`
   position: fixed;
@@ -21,7 +21,7 @@ const StyledToasts = styled.div`
     bottom: 0px;
     padding: 40px;
   }
-`
+`;
 
 const StackedToast = styled.div`
   background: #e8e8e8e3;
@@ -30,17 +30,23 @@ const StackedToast = styled.div`
   height: 60px;
   transform: translateY(-60px);
   z-index: -1;
-`
+`;
 
 const StyledToast = styled.div`
   @property --fade-in {
-    syntax: '<percentage>';
+    syntax: "<percentage>";
     initial-value: 0%;
     inherits: false;
   }
   @keyframes toast-appear {
-    0% { opacity: 0; --fade-in: 100%; }
-    100% { opacity: 1; --fade-in: 0%; }
+    0% {
+      opacity: 0;
+      --fade-in: 100%;
+    }
+    100% {
+      opacity: 1;
+      --fade-in: 0%;
+    }
   }
   background: #fffffff0;
   color: black;
@@ -53,7 +59,7 @@ const StyledToast = styled.div`
   cursor: pointer;
   padding: 10px;
 
-  animation: toast-appear .2s;
+  animation: toast-appear 0.2s;
 
   width: 100%;
 
@@ -69,12 +75,16 @@ const StyledToast = styled.div`
     max-width: 300px;
     transform: translateX(var(--fade-in));
   }
-`
+`;
 
-const StyledTimer = styled.div<{$ticking: boolean}>`
+const StyledTimer = styled.div<{ $ticking: boolean }>`
   @keyframes yesyes {
-    0% { width: 100%;}
-    100% { width: 0%;}
+    0% {
+      width: 100%;
+    }
+    100% {
+      width: 0%;
+    }
   }
   width: 100%;
   height: 5px;
@@ -83,9 +93,11 @@ const StyledTimer = styled.div<{$ticking: boolean}>`
   position: relative;
   overflow: hidden;
   &:after {
-    ${(props) => props.$ticking && css`
-      animation: yesyes linear 10s;
-    `}
+    ${(props) =>
+      props.$ticking &&
+      css`
+        animation: yesyes linear 10s;
+      `}
     content: " ";
     position: absolute;
     border-radius: 10px;
@@ -95,33 +107,36 @@ const StyledTimer = styled.div<{$ticking: boolean}>`
     height: 5px;
     background: #9564ff;
   }
-`
+`;
 
-function Toast({ toast }: {toast: TToast}) {
-  const timeout = React.useRef<NodeJS.Timer>()
-  const discard = useToastStore((state) => state.discard)
-  const [ticking, setTicking] = React.useState(true)
+function Toast({ toast }: { toast: TToast }) {
+  const timeout = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const discard = useToastStore((state) => state.discard);
+  const [ticking, setTicking] = React.useState(true);
 
-  React.useLayoutEffect(
-    () => {
-      timeout.current = setTimeout(() => {
-        discard(toast.id)
-      }, 10000)
-      return () => clearTimeout(timeout.current)
-    },
-    [toast.id],
-  )
+  React.useLayoutEffect(() => {
+    timeout.current = setTimeout(() => {
+      discard(toast.id);
+    }, 10000);
+    return () => {
+      if (timeout.current !== null) {
+        clearTimeout(timeout.current);
+      }
+    };
+  }, [toast.id]);
 
   const pauseTimer = () => {
-    setTicking(false)
-    clearTimeout(timeout.current)
-  }
+    setTicking(false);
+    if (timeout.current) {
+      clearTimeout(timeout.current);
+    }
+  };
   const resumeTimer = () => {
-    setTicking(true)
+    setTicking(true);
     timeout.current = setTimeout(() => {
-      discard(toast.id)
-    }, 10000)
-  }
+      discard(toast.id);
+    }, 10000);
+  };
 
   return (
     <StyledToast
@@ -130,28 +145,28 @@ function Toast({ toast }: {toast: TToast}) {
       onMouseLeave={resumeTimer}
     >
       <div>
-        <div style={{ fontWeight: 'bold' }}>{toast.title}</div>
-        <div style={{ color: 'gray', fontSize: '90%' }}>{toast.description}</div>
+        <div style={{ fontWeight: "bold" }}>{toast.title}</div>
+        <div style={{ color: "gray", fontSize: "90%" }}>
+          {toast.description}
+        </div>
       </div>
       <StyledTimer $ticking={ticking} />
     </StyledToast>
-  )
+  );
 }
 
 export default function Toasts() {
-  const toasts = useToastStore((state) => [...state.toasts].reverse())
-  const showAll = useMediaQuery('sm')
+  const toasts = useToastStore((state) => [...state.toasts].reverse());
+  const showAll = useMediaQuery("sm");
 
-  const visible = showAll ? toasts : toasts.slice(0, 1)
+  const visible = showAll ? toasts : toasts.slice(0, 1);
 
   return (
     <StyledToasts>
-      {visible.map((toast, i) => (
+      {visible.map((toast) => (
         <Toast toast={toast} key={toast.id} />
       ))}
-      {!showAll && toasts.length > 1 && (
-        <StackedToast />
-      )}
+      {!showAll && toasts.length > 1 && <StackedToast />}
     </StyledToasts>
-  )
+  );
 }

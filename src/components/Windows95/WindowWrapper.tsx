@@ -98,7 +98,7 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
     ? "fixed inset-0 flex flex-col"
     : isExpanded
     ? "absolute flex flex-col w-full h-full"
-    : "absolute flex flex-col w-[600px]";
+    : "absolute flex flex-col w-[800px]";
 
   return (
     <div
@@ -151,7 +151,11 @@ export const WindowWrapper: React.FC<WindowWrapperProps> = ({
 
       <MenuBar onSelect={handleMenuSelect} activeItem={activeMenu} />
 
-      <div className="flex-1 overflow-auto bg-white win95-inset h-full">
+      <div
+        className={`flex-1 overflow-auto bg-white win95-inset custom-scroll ${
+          isExpanded ? "h-full" : "max-h-[700px]"
+        }`}
+      >
         <div className="h-full">
           {activeMenu === "Help" ? (
             help ? (

@@ -1,9 +1,7 @@
-import React from "react";
 import styled from "styled-components";
 import { SlideSection } from "../components/Slider";
 import { GAMES } from "@/components/Windows95/windows/Games/games";
 import { GameCard } from "./GameCard";
-import { WelcomeBanner } from "./WelcomeBanner";
 
 export function GameSlider() {
   return (

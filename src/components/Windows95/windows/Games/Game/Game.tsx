@@ -2,7 +2,6 @@ import { GambaUi, useSoundStore } from "gamba-react-ui-v2";
 import React from "react";
 import { Icon } from "./../components/Icon";
 import { Modal } from "./../components/Modal";
-import { GAMES } from "./../games";
 import { useUserStore } from "@/hooks/useUserStore";
 import { GameSlider } from "../Dashboard/Dashboard";
 import {
@@ -16,6 +15,7 @@ import {
 import { LoadingBar } from "./LoadingBar";
 import { ProvablyFairModal } from "./ProvablyFairModal";
 import { TransactionModal } from "./TransactionModal";
+import { useViewStore } from "@/hooks/useViewState";
 
 function CustomError() {
   return (
@@ -94,15 +94,6 @@ function CustomRenderer() {
           <GambaUi.PortalTarget target="error" />
           {ready && <GambaUi.PortalTarget target="screen" />}
           <MetaControls>
-            {/* <div style={{ display: 'flex' }}>
-              <IconButton onClick={() => setTxModal(true)}>
-                {loading === -1 ? (
-                  <Icon.Shuffle />
-                ) : (
-                  <Spinner />
-                )}
-              </IconButton>
-            </div> */}
             <IconButton onClick={() => setInfo(true)}>
               <Icon.Info />
             </IconButton>
@@ -129,11 +120,17 @@ function CustomRenderer() {
 }
 
 export default function Game() {
-  const { gameId } = { gameId: "dice" };
-  const game = GAMES.find((x) => x.id === gameId);
+  const game = useViewStore((state) => state.selectedGame);
+  const setView = useViewStore((state) => state.setView);
 
   return (
     <>
+      <button
+        className="absolute top-8 left-8 text-white z-10"
+        onClick={() => setView("dashboard")}
+      >
+        Home
+      </button>
       {game ? (
         <GambaUi.Game
           game={game}
@@ -141,7 +138,7 @@ export default function Game() {
           children={<CustomRenderer />}
         />
       ) : (
-        <h1>Game not found! 👎</h1>
+        <h1>No game selected</h1>
       )}
       <GameSlider />
     </>

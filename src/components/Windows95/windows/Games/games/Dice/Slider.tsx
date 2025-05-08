@@ -1,36 +1,35 @@
-import React from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css } from "styled-components";
 
 interface SliderProps {
-  min: number
-  max: number
-  value: number
-  range: [number, number]
-  onChange: (value: number) => void
-  disabled?: boolean
+  min: number;
+  max: number;
+  value: number;
+  range: [number, number];
+  onChange: (value: number) => void;
+  disabled?: boolean;
 }
 
 const Container = styled.div`
   position: relative;
   width: 100%;
-`
+`;
 
 const Wrapper = styled.div`
   position: relative;
   background: #ff556a;
   border-radius: 10px;
   box-shadow: 0 0 0px 5px #32294355;
-  transition: box-shadow .2s ease;
+  transition: box-shadow 0.2s ease;
   height: 15px;
   opacity: 1;
   cursor: pointer;
-`
+`;
 
 const Track = styled.div`
   background: #55f275;
   height: 100%;
   border-radius: 10px 0 0 10px;
-`
+`;
 
 const StyledSlider = styled.input`
   position: absolute;
@@ -57,7 +56,7 @@ const StyledSlider = styled.input`
     appearance: none;
     width: 20px;
     height: 20px;
-    background: #FFFFFF;
+    background: #ffffff;
     cursor: pointer;
     border-radius: 2px;
   }
@@ -65,13 +64,13 @@ const StyledSlider = styled.input`
   &::-moz-range-thumb {
     width: 20px;
     height: 20px;
-    background: #FFFFFF;
+    background: #ffffff;
     cursor: pointer;
     border-radius: 2px;
   }
-`
+`;
 
-const Label = styled.div<{$active: boolean}>`
+const Label = styled.div<{ $active: boolean }>`
   margin-top: 10px;
   position: absolute;
   transform: translateX(-50%);
@@ -81,28 +80,37 @@ const Label = styled.div<{$active: boolean}>`
   border-radius: 10px;
   min-width: 30px;
   color: #ff949f;
-  transition: left .2s ease;
+  transition: left 0.2s ease;
   font-size: 75%;
 
-  ${(props) => props.$active && css`
-    color: #94ff94;
-  `}
+  ${(props) =>
+    props.$active &&
+    css`
+      color: #94ff94;
+    `}
+`;
 
-`
-
-function Slider ({ min: minValue, max: maxValue, value, onChange, disabled, range: [min, max] }: SliderProps) {
-  const labels = Array.from({ length: 5 }).map((_, i, arr) => min + Math.floor(i / (arr.length - 1) * (max - min)))
+function Slider({
+  min: minValue,
+  max: maxValue,
+  value,
+  onChange,
+  disabled,
+  range: [min, max],
+}: SliderProps) {
+  const labels = Array.from({ length: 5 }).map(
+    (_, i, arr) => min + Math.floor((i / (arr.length - 1)) * (max - min))
+  );
 
   const change = (newValue: number) => {
-    const fixedValue = Math.max(minValue, Math.min(maxValue, newValue))
-    if (fixedValue !== value)
-      onChange(fixedValue)
-  }
+    const fixedValue = Math.max(minValue, Math.min(maxValue, newValue));
+    if (fixedValue !== value) onChange(fixedValue);
+  };
 
   return (
     <Container>
       <Wrapper>
-        <Track style={{ width: `calc(${value / max * 100}%)` }} />
+        <Track style={{ width: `calc(${(value / max) * 100}%)` }} />
         <StyledSlider
           type="range"
           value={value}
@@ -116,13 +124,13 @@ function Slider ({ min: minValue, max: maxValue, value, onChange, disabled, rang
         <Label
           key={i}
           $active={value >= label}
-          style={{ left: (label / max * 100) + '%' }}
+          style={{ left: (label / max) * 100 + "%" }}
         >
           {label}
         </Label>
       ))}
     </Container>
-  )
+  );
 }
 
-export default Slider
+export default Slider;

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import styled, { keyframes } from "styled-components";
 import useSWR from "swr";
 import { useWallet } from "@solana/wallet-adapter-react";

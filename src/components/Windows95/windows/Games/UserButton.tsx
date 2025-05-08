@@ -1,7 +1,7 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { GambaUi, useReferral } from "gamba-react-ui-v2";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Modal } from "./components/Modal";
 import {
   PLATFORM_ALLOW_REFERRER_REMOVAL,
@@ -128,7 +128,7 @@ export function UserButton() {
           <GambaUi.Button onClick={() => user.set({ userModal: true })}>
             <div style={{ display: "flex", gap: ".5em", alignItems: "center" }}>
               <img src={wallet.wallet?.adapter.icon} height="20px" />
-              {truncateString(wallet.publicKey?.toBase58(), 3)}
+              {truncateString(wallet.publicKey?.toBase58() ?? "", 3)}
             </div>
           </GambaUi.Button>
         </div>
